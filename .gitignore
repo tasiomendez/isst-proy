@@ -1,0 +1,8 @@
+src/META-INF/
+WebContent/META-INF/
+WebContent/WEB-INF/
+build/
+.project
+.classpath
+.settings/
+.DS_Store
