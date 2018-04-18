@@ -66,6 +66,14 @@ nav #sign-up {
 	margin-top: 15px !important;
 }
 
+.with-errors {
+	margin-top: 5px !important;
+}
+
+.with-errors li {
+	font-size: 10px;
+}
+
 .login-wrapper {
 	border: 1px solid #ddd;
 	border-radius: 10px;
@@ -102,3 +110,23 @@ label.remember-me {
 	padding: 15px 0px;
 	border-top: 1px solid #ddd;
 }
+
+.alert {
+	font-size: 10px;
+    padding: 10px 15px;
+}
+
+.alert-danger {
+	color: #b94a48;
+	background-color: #f2dede4d;
+}
+
+.alert-success {
+	color: #468847;
+	background-color: #dff0d84d;
+}
+
+
+
+
+

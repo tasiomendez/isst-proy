@@ -34,7 +34,8 @@
     <div class="row">
         <div class="col-sm-5 login-wrapper">
         		<img src="${pageContext.request.contextPath}/img/logo.png" alt="logo"/>
-                <form class="form-signin" action="LoginServlet" data-toggle="validator" role="form">
+				
+                <form class="form-signin" action="LoginServlet" method="post" data-toggle="validator" role="form">
                 	<div class="form-group">
 	                	<label for="email">Email</label>
 	                	<div class="input-group">

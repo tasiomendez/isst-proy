@@ -1,0 +1,241 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background: linear-gradient(#ddd, white) !important;
+	overflow: hidden;
+}
+
+body .navbar {
+	margin-left: 75px;
+	padding: initial;
+	height: initial;	
+	margin-top: initial;
+	display: block !important;
+}
+
+.navbar {
+	overflow: visible !important;
+}
+
+.navbar > .container-fluid {
+	display: flex;
+	justify-content: center;
+}
+
+.navbar .show-menu {
+	align-self: center;
+	position: absolute;
+	left: 15px;
+}
+
+.navbar .right-menu {
+	align-self: center;
+	position: absolute;
+	right: 15px;
+	padding: 5px;
+	border: 1px solid #504949;
+	border-radius: 54px;
+} 
+
+.navbar .right-menu .dropdown-menu {
+	right: 0 !important;
+	left: inherit;
+	border: none;
+}
+
+.navbar .right-menu .dropdown-menu > li > a:hover {
+	background-color: #e3e0e0;	
+}
+
+.navbar .navbar-nav .glyphicon {
+	font-size: x-large;
+	color: #504949;
+	cursor: pointer;
+}
+
+ /* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 75px; 
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #504949; 
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.sidenav .menu-title {
+	height: 50px;
+	align-self: center;
+	display: flex;
+	color: white;
+	font-size: large;
+}
+
+.sidenav .menu-title .menu-item {
+	margin: initial;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+.main {
+    transition: margin-left .5s;
+    padding: 20px;
+    width: calc(100% - 75px);
+    height: calc(100% - 50px);
+    margin-top: 50px;
+	margin-left: 75px;
+	overflow: auto;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+} 
+
+.item:hover {
+	background-color: white !important;
+	color: #504949;
+	cursor: pointer;
+}
+
+.item {
+	color: white;
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	width: 250px;
+	justify-content: left;
+	align-content: center;
+	flex: 1;
+}
+
+.item.active {
+	background-color: #776c6c;
+}
+
+.user-info {
+	flex: 2;
+	border: 2px solid #504949;
+	background-color: white;
+}
+
+#sidenav {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: flex-start;
+}
+
+.menu-item {
+	margin-left: 25px;
+	align-self: center;
+	font-weight: bold;
+}
+
+.sidenav .glyphicon {
+	font-size: 2.3em;
+	align-self: center;
+	margin-left: 20px;
+}
+
+
+/** Create **/
+.main#create {
+	padding: 0 !important;
+}
+
+.main#create .wrapper {
+	height: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: white;
+	border-right: 0.5px solid #776c6c;
+	border-left: 0.5px solid #776c6c;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.main#create textarea {
+   resize: none;
+}
+
+
+/** Projects **/
+.main#projects > .row {
+	background-color: white;
+	padding-bottom: 25px;
+	padding-top: 25px;
+	border-bottom: 1px solid #ddd;
+	margin: 20px -20px;
+}
+
+.main#projects > .header {
+	padding-top: initial;
+	margin: -20px;
+}
+
+.form-filter input {
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+	border-right: none;
+	height: 25px;
+    font-size: 10px;
+}
+
+.form-filter .input-group-addon {
+	border-top-right-radius: 15px;
+	border-bottom-right-radius: 15px;
+	background-color: white;
+	border-left: none !important;
+	height: 25px;
+}
+
+.form-filter .input-group-addon .glyphicon {
+	font-size: 10px;
+}
+
+.main#projects img.project-img {
+	width: 200px;
+	height: 100px;
+	object-fit: cover;
+	object-position: bottom;
+	border-radius: 10px;
+	border: 1px solid #ddd;
+}
+
+.main#projects .project-item {
+	display: flex;
+	flex-direction: row;
+}
+
+.main#projects .project-info {
+	margin-left: 15px;
+	width: 100%;
+}
+
+.main#projects .project-info h4 {
+	margin-top: 0px;
+	height: 20px;
+}
+
+.main#projects .project-info .description {
+	margin-top: 0px;
+	height: 20px;
+}
+
+
+
+
+
+
+
+
+

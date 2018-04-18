@@ -42,7 +42,8 @@ function captcha_onclick(e) {
     <div class="row">
         <div class="col-sm-5 login-wrapper">
         		<h3 class="text-center">Sign up</h3>
-                <form class="form-signin" role="form" data-toggle="validator">
+				
+                <form class="form-signin" role="form" method="post" data-toggle="validator">
                 	<div class="form-group">
 	                	<label for="name">Name</label>
 	                	<input type="text" name="name" id="name" class="form-control" placeholder="Type your name" required>
