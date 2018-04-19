@@ -93,13 +93,13 @@ public class UsuarioDAOImplementation implements UsuarioDAO{
 		Usuario usuario = null;
 		try {
         	session.beginTransaction();
-        	usuario = (Usuario) session.createQuery("select p from Usuario p where p.email = :email and p.password = :password")
+        	usuario = (Usuario) session.createQuery("select u from Usuario u where u.email = :email and u.contraseña = :password")
         		.setParameter("email", email)
 	        	.setParameter("password", password)
 	        	.getSingleResult();
         	session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+		     System.out.println(e);
 		} finally {
 		    session.close();
 		}

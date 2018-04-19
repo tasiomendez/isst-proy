@@ -1,13 +1,10 @@
 package es.upm.dit.isst.proy.dao.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -24,15 +21,14 @@ public class Usuario {
 	private String departamento;
 	
 	/*@OneToMany(mappedBy="usuarioDestino", fetch = FetchType.EAGER) //DONE destino usuario
-	private List<Notificacion> notificaciones;
-	
-	@OneToMany(mappedBy="usuario", fetch = FetchType.EAGER)
-	private List<Tarea> tareas;*/
+	private List<Notificacion> notificaciones;*/
 	
 	@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER)
-	private List<Contrato> contratos;
-	/*@ManyToMany(mappedBy="usuario")
-	private List<Tarea> tareas;*/
+	private Set<Contrato> contratos;
+	
+	@OneToMany(mappedBy="usuario", fetch=FetchType.EAGER)
+	private Set<Job> jobs;
+	
 	
 	public Usuario() {
 		//notificaciones=new ArrayList<>();
@@ -100,15 +96,17 @@ public class Usuario {
 
 
 
-	public List<Contrato> getContratos() {
-		return contratos;
+	public Set<Job> getJobs() {
+		return jobs;
 	}
 
 
 
-	public void setContratos(List<Contrato> contratos) {
-		this.contratos = contratos;
+	public void setJobs(Set<Job> jobs) {
+		this.jobs = jobs;
 	}
+
+
 
 	/*public List<Notificacion> getNotificaciones() {
 		return notificaciones;
