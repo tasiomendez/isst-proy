@@ -27,7 +27,7 @@ public class AdminServlet extends HttpServlet{
 		usuario.setRol(Integer.parseInt(role));
 		
 		UsuarioDAOImplementation.getInstance().createUsuario(usuario);
-		req.getSession().setAttribute("role", usuario.getRol());
+		// Poner codigo de success
 		resp.sendRedirect(req.getContextPath()+"/admin.jsp");
 		
 	}

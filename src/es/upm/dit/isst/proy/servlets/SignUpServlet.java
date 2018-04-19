@@ -39,7 +39,7 @@ public class SignUpServlet extends HttpServlet{
 		Proyecto proyecto=ProyectoDAOImplementation.getInstance().readProyectoFromProjectCode(Integer.parseInt(project_code));
 		if (proyecto==null) {
 			System.out.println("No existe ese project_code");
-			//Redireccionar al Login con codigo de error: PROJECT CODE DOESNT EXIST
+			req.setAttribute("error", "El Project Code introducido no corresponde al de ningún proyecto.");
 			resp.sendRedirect(req.getContextPath()+"/signup.jsp");
 		}else {
 			Usuario usuario= new Usuario();
@@ -57,8 +57,8 @@ public class SignUpServlet extends HttpServlet{
 			contrato.setProyecto(proyecto);
 			ContratoDAOImplementation.getInstance().createContrato(contrato);
 				
-			//Redireccionar a la vista del usuario
-			req.getSession().setAttribute("role",usuario.getRol());
+			
+			resp.sendRedirect(req.getContextPath()+"/signup.jsp");
 		}
 		
 	}
