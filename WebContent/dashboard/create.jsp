@@ -54,7 +54,7 @@
 			    });
 			</script>
 			
-			<button class="btn btn-lg btn-primary btn-block disabled" type="submit">Sign in</button>
+			<button class="btn btn-lg btn-primary btn-block disabled" type="submit">Create</button>
 		
 		</form>
 	</div>
