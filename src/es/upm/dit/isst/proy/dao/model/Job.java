@@ -1,13 +1,15 @@
 package es.upm.dit.isst.proy.dao.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 @Entity
 public class Job {
 
-	@Id
-	private int id=0;
+	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private int id;
 	private int horas_hechas=0;
 	private int horas_planificadas=0;
 	@ManyToOne
@@ -15,7 +17,9 @@ public class Job {
 	@ManyToOne
 	private Tarea tarea;
 	
-	public Job() {id+=1;}
+	public Job() {
+		//id+=1;
+		}
 	
 	public int getId() {
 		return id;
