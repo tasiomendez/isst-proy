@@ -87,4 +87,9 @@ public class Proyecto {
 	public void setContratos(Set<Contrato> contratos) {
 		this.contratos = contratos;
 	}
+	@Override
+	public String toString() {
+		String result="Title: "+titulo+"/Description: "+descripcion;
+		return result;
+	}
 }

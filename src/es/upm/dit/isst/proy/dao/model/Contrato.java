@@ -46,11 +46,6 @@ public class Contrato {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	
 
 	/*public int getUsuarioEmail() {
 		return usuarioEmail;
