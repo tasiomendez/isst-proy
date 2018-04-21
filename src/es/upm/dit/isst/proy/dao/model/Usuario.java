@@ -108,20 +108,18 @@ public class Usuario {
 
 
 
-	/*public List<Notificacion> getNotificaciones() {
-		return notificaciones;
+	public Set<Contrato> getContratos() {
+		return contratos;
 	}
 
-	public void setNotificaciones(List<Notificacion> notificaciones) {
-		this.notificaciones = notificaciones;
+
+
+	public void setContratos(Set<Contrato> contratos) {
+		this.contratos = contratos;
 	}
 
-	public List<Tarea> getTareas() {
-		return tareas;
-	}
 
-	public void setTareas(List<Tarea> tareas) {
-		this.tareas = tareas;
-	}*/
+
+
 
 }

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -15,25 +16,14 @@ public class Contrato {
 	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	
-	
-	/*@OneToMany(mappedBy="equipo", fetch = FetchType.EAGER) //Un equipo tiene muchos usuarios
-	private Set<Usuario> usuarios;
-	
-	@OneToMany(mappedBy="equipo", fetch = FetchType.EAGER) // Un equipo tiene muchos proyectos
-	private Set<Proyecto> proyectos;*/
-	
-	public int getId() {
-		return id;
-	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 	@ManyToOne
 	private Usuario usuario;
 	
 	@ManyToOne
 	private Proyecto proyecto;
+	
 	public Contrato() {
 			
 	}
@@ -52,7 +42,13 @@ public class Contrato {
 	}
 	
 	
+	public int getId() {
+		return id;
+	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	
 

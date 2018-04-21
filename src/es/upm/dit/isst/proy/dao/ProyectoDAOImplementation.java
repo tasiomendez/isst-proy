@@ -108,10 +108,13 @@ public class ProyectoDAOImplementation implements ProyectoDAO{
 		Session session = SessionFactoryService.get().openSession();
 		try {
         	session.beginTransaction();
-        	proyecto = (Proyecto) session.createQuery("select * from Proyecto where project_code== :code")
-        			.setParameter("code", project_code);
+        	proyecto = (Proyecto) session.createQuery("select p from Proyecto p where p.project_code= :code")
+        			.setParameter("code", project_code)
+        			.getSingleResult();
         	session.getTransaction().commit();
+        	//session.get(Proyecto.class, project_code);
 		} catch (Exception e) {
+			System.out.println(e);
 		            	// manejar excepciones
 		} finally {
 		    session.close();
