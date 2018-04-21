@@ -33,13 +33,15 @@ public class SignUpServlet extends HttpServlet{
 		String email=req.getParameter("email");
 		String password=req.getParameter("password");//Esto lo cambiare para guardar un Hash
 		String project_code=req.getParameter("project_code");
-		
+		System.out.println(project_code);
+
 		
 		//Busco el proyecto asociado al referal code
 		Proyecto proyecto=ProyectoDAOImplementation.getInstance().readProyectoFromProjectCode(Integer.parseInt(project_code));
 		if (proyecto==null) {
 			System.out.println("No existe ese project_code");
 			req.setAttribute("error", "El Project Code introducido no corresponde al de ningún proyecto.");
+			
 			resp.sendRedirect(req.getContextPath()+"/signup.jsp");
 		}else {
 			Usuario usuario= new Usuario();
@@ -56,9 +58,10 @@ public class SignUpServlet extends HttpServlet{
 			contrato.setUsuario(usuario);
 			contrato.setProyecto(proyecto);
 			ContratoDAOImplementation.getInstance().createContrato(contrato);
-				
+			req.getSession().setAttribute("role",usuario.getRol());
+			req.getSession().setAttribute("email", usuario.getEmail());
 			
-			resp.sendRedirect(req.getContextPath()+"/signup.jsp");
+			resp.sendRedirect(req.getContextPath()+"/dashboard.jsp");
 		}
 		
 	}

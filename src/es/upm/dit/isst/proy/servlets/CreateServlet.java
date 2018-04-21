@@ -68,7 +68,7 @@ public class CreateServlet extends HttpServlet{
 		contrato.setUsuario(gestor);
 		ContratoDAOImplementation.getInstance().createContrato(contrato);
 		
-		resp.sendRedirect(req.getContextPath()+"/dashboard.jsp");
+		resp.sendRedirect(req.getContextPath());
 		
 		
 	}
