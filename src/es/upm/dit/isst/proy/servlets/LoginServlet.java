@@ -18,21 +18,28 @@ import es.upm.dit.isst.proy.dao.model.Usuario;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		if (req.getSession().getAttribute("email") != null) {
+			Usuario usuario = UsuarioDAOImplementation.getInstance().readUsuario((String) req.getSession().getAttribute("email"));
+			loadEvents(req, resp, usuario);
+		}
+	}
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email= req.getParameter("email");
 		String password = req.getParameter("password");
 		System.out.println("email: "+email);
 		System.out.println("pwd: "+password);
-		Usuario usuario=UsuarioDAOImplementation.getInstance().loginUsuario(email, password);
-
-
+		Usuario usuario = UsuarioDAOImplementation.getInstance().loginUsuario(email, password);
 
 		if (usuario == null) {
 			System.out.print("Usuario no registrado");
 			//Redireccionamos de nuevo a login (Podemos hacerlo con un codigo de error para mostrar un mensaje de usuario no registrado)
 			req.setAttribute("error","Usuario no registrado.");
-			resp.sendRedirect(req.getContextPath()+"/login.jsp");
+			resp.sendRedirect(req.getContextPath() + "/login.jsp");
 
 		} else {
 			req.getSession().setAttribute("role",usuario.getRol());
@@ -50,20 +57,22 @@ public class LoginServlet extends HttpServlet{
 			req.getSession().setAttribute("trabajador_list", list_trabajador);
 			req.getSession().setAttribute("calendar_id", usuario.getIdCalendar());
 
-			if (usuario.getIdCalendar() != null) {
-				try {
-					RequestDispatcher rd = req.getRequestDispatcher("EventListServlet");
-					rd.forward(req,resp);
-				} catch (Exception e) {
-					RequestDispatcher rd = req.getRequestDispatcher("CalendarServlet");
-					rd.forward(req,resp);
-				}
-			} else {
-				resp.sendRedirect(req.getContextPath());
-			}
-
+			loadEvents(req, resp, usuario);
 		}
-
+	}
+	
+	private void loadEvents(HttpServletRequest req, HttpServletResponse resp, Usuario usuario) throws ServletException, IOException {
+		if (usuario.getIdCalendar() != null) {
+			try {
+				RequestDispatcher rd = req.getRequestDispatcher("EventListServlet");
+				rd.forward(req,resp);
+			} catch (Exception e) {
+				RequestDispatcher rd = req.getRequestDispatcher("CalendarServlet");
+				rd.forward(req,resp);
+			}
+		} else {
+			resp.sendRedirect(req.getContextPath());
+		}
 	}
 }
 

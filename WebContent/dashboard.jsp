@@ -33,9 +33,14 @@
 		else 
 			$('.item#projects').click();
 	};
+	
+	if (performance.navigation.type == 1) {
+		window.location.replace("${pageContext.request.contextPath}/LoginServlet");
+	}
 </script>
 
 </head>
+
 <body>
 
 <c:if test="${email == null}">
