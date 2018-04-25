@@ -36,10 +36,12 @@ public class LoginServlet extends HttpServlet{
 		Usuario usuario = UsuarioDAOImplementation.getInstance().loginUsuario(email, password);
 
 		if (usuario == null) {
-			System.out.print("Usuario no registrado");
-			//Redireccionamos de nuevo a login (Podemos hacerlo con un codigo de error para mostrar un mensaje de usuario no registrado)
-			req.setAttribute("error","Usuario no registrado.");
-			resp.sendRedirect(req.getContextPath() + "/login.jsp");
+			//Redireccionamos de nuevo a login
+			if (UsuarioDAOImplementation.getInstance().readUsuario(email) != null)
+				req.getSession().setAttribute("error", "La contraseña es incorrecta.");
+			else
+				req.getSession().setAttribute("error", "El correo introducido es incorrecto.");
+			resp.sendRedirect(req.getContextPath());
 
 		} else {
 			req.getSession().setAttribute("role",usuario.getRol());

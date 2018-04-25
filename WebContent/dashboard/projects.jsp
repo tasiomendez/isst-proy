@@ -1,3 +1,5 @@
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+ 
 <div class="row header">
 	<div class="col-sm-12">
 		<h3 class="text-center"><b><em>Current Projects List</em></b></h3>
@@ -49,80 +51,91 @@
 	}
 </script>
 
-<c:forEach items="${project_list}" var="project">
-
-	<!-- Lista dinámica de projectos -->
-	<div class="row">
-		<div class="col-sm-12 project-item">
-			<img class="project-img" src="img/logo.png" />
-			<div class="project-info">
-				<h4><strong>${project.titulo}</strong> (${project.project_code})<br/>
-				<em><span class="${project.project_code}-project-date" style="font-size: small;"></span></em></h4>
-				<script type="text/javascript">
-					function pad(d) {
-					    return (d < 10) ? '0' + d.toString() : d.toString();
-					}
-					var finalDate = new Date(moment("${project.fechaFinal}", "DD-MM-YYYY"));
-					var initialDate = new Date(moment("${project.fechaInicio}", "DD-MM-YYYY"));
-					var to = pad(finalDate.getDate()) + '-' + pad(finalDate.getMonth() + 1) + '-' + finalDate.getFullYear();
-					var from = pad(initialDate.getDate()) + '-' + pad(initialDate.getMonth() + 1) + '-' + initialDate.getFullYear();
-					$(".${project.project_code}-project-date").text( "From " + from + " to " + to );  
-				</script>
-				<p class="description">${project.descripcion}</p>
-				<!-- Project Code Form -->
-				<form id="project-code-${project.project_code}" class="hidden" method="post" target="_blank" action="KanbanServlet">
-     				<input type="hidden" name="project_code" value="${project.project_code}" />
-				</form>
-				<div class="project-actions">
-					<div class="btn-group" role="group" aria-label="...">
-						<c:if test="${role == 0 || role == 1}">
-							<button type="button" class="btn btn-default disabled">Generar informe</button>
-						</c:if>
-						<c:if test="${role == 0 || role == 1}">
-							<button type="button" class="btn btn-default disabled hidden-sm">Ver estadísticas</button>
-						</c:if>
-						<button type="button" class="btn btn-default disabled">Entregables</button>
-						<c:if test="${role == 0 || role == 1}">
-							<button type="button" class="btn btn-default disabled hidden-sm">Editar proyecto</button>
-						</c:if>
-						<button type="submit" form="project-code-${project.project_code}" class="btn btn-default">Ver proyecto</button>
+<c:choose>
+    <c:when test="${fn:length(project_list) gt 0}">
+    
+		<c:forEach items="${project_list}" var="project">
+		
+			<!-- Lista dinámica de projectos -->
+			<div class="row">
+				<div class="col-sm-12 project-item">
+					<img class="project-img" src="img/logo.png" />
+					<div class="project-info">
+						<h4><strong>${project.titulo}</strong> (${project.project_code})<br/>
+						<em><span class="${project.project_code}-project-date" style="font-size: small;"></span></em></h4>
+						<script type="text/javascript">
+							function pad(d) {
+							    return (d < 10) ? '0' + d.toString() : d.toString();
+							}
+							var finalDate = new Date(moment("${project.fechaFinal}", "DD-MM-YYYY"));
+							var initialDate = new Date(moment("${project.fechaInicio}", "DD-MM-YYYY"));
+							var to = pad(finalDate.getDate()) + '-' + pad(finalDate.getMonth() + 1) + '-' + finalDate.getFullYear();
+							var from = pad(initialDate.getDate()) + '-' + pad(initialDate.getMonth() + 1) + '-' + initialDate.getFullYear();
+							$(".${project.project_code}-project-date").text( "From " + from + " to " + to );  
+						</script>
+						<p class="description">${project.descripcion}</p>
+						<!-- Project Code Form -->
+						<form id="project-code-${project.project_code}" class="hidden" method="post" target="_blank" action="KanbanServlet">
+		     				<input type="hidden" name="project_code" value="${project.project_code}" />
+						</form>
+						<div class="project-actions">
+							<div class="btn-group" role="group" aria-label="...">
+								<c:if test="${role == 0 || role == 1}">
+									<button type="button" class="btn btn-default disabled">Generar informe</button>
+								</c:if>
+								<c:if test="${role == 0 || role == 1}">
+									<button type="button" class="btn btn-default disabled hidden-sm">Ver estadísticas</button>
+								</c:if>
+								<button type="button" class="btn btn-default disabled">Entregables</button>
+								<c:if test="${role == 0 || role == 1}">
+									<button type="button" class="btn btn-default disabled hidden-sm">Editar proyecto</button>
+								</c:if>
+								<button type="submit" form="project-code-${project.project_code}" class="btn btn-default">Ver proyecto</button>
+							</div>
+						</div>
 					</div>
+					<div class="${project.project_code} chart-info">
+						<span>60%</span> of 100
+					</div>
+					<div id="${project.project_code}" style="width: 150px; height: 150px;"></div>
+					<script type="text/javascript">
+						google.charts.load("current", {packages:["corechart"]});
+						google.charts.setOnLoadCallback(function() {
+							var color = getRandomColor(${project.project_code});
+							var data = google.visualization.arrayToDataTable([
+							    ['Completed', 	'Percentage'],
+							    ['Completed', 	60],
+							    ['Uncompleted', 40]
+						  	]);
+						
+						  	var options = {
+						    	pieHole: 0.5,
+						    	legend: 'none',
+						    	pieSliceText: 'none',
+						    	enableInteractivity: false,
+						    	chartArea: {left:0,top:0,width:'100%',height:'100%'},
+						    	width: 150,
+						    	height: 150,
+						    	colors:[color,lightColor(color, 0.5)],
+						  	};
+					
+						  	var chart = new google.visualization.PieChart(document.getElementById('${project.project_code}'));
+						  	$('.${project.project_code}.chart-info span').css('color', color);
+						  	chart.draw(data, options);
+						});
+			    	</script>
 				</div>
 			</div>
-			<div class="${project.project_code} chart-info">
-				<span>60%</span> of 100
-			</div>
-			<div id="${project.project_code}" style="width: 150px; height: 150px;"></div>
-			<script type="text/javascript">
-				google.charts.load("current", {packages:["corechart"]});
-				google.charts.setOnLoadCallback(function() {
-					var color = getRandomColor(${project.project_code});
-					var data = google.visualization.arrayToDataTable([
-					    ['Completed', 	'Percentage'],
-					    ['Completed', 	60],
-					    ['Uncompleted', 40]
-				  	]);
-				
-				  	var options = {
-				    	pieHole: 0.5,
-				    	legend: 'none',
-				    	pieSliceText: 'none',
-				    	enableInteractivity: false,
-				    	chartArea: {left:0,top:0,width:'100%',height:'100%'},
-				    	width: 150,
-				    	height: 150,
-				    	colors:[color,lightColor(color, 0.5)],
-				  	};
 			
-				  	var chart = new google.visualization.PieChart(document.getElementById('${project.project_code}'));
-				  	$('.${project.project_code}.chart-info span').css('color', color);
-				  	chart.draw(data, options);
-				});
-	    	</script>
-		</div>
-	</div>
-	
-</c:forEach>
+		</c:forEach>
+		
+	</c:when>    
+    <c:otherwise>
+        
+        <div class="no-current-projects">No current projects</div>
+        
+    </c:otherwise>
+</c:choose>
 
 <!-- Add project button and modal -->
 <div class="add-project">

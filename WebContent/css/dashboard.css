@@ -200,6 +200,7 @@ body .navbar {
 	justify-content: center;
 	height: calc(100% - 70px);
 	border-bottom: none;
+	width: 100%;
 }
 
 .form-filter input {
