@@ -41,6 +41,18 @@
     <div class="row">
         <div class="col-sm-5 login-wrapper">
         		<h3 class="text-center">Sign up</h3>
+        		<c:if test="${not empty user_error}">
+					<div class="alert alert-danger" role="alert"><b>Error!</b> ${user_error}</div>
+					<%
+						session.removeAttribute("user_error");
+					%>
+				</c:if>
+				<c:if test="${not empty user_success}">
+					<div class="alert alert-success" role="alert"><b>Success!</b> ${user_success}</div>
+					<%
+						session.removeAttribute("user_success");
+					%>
+				</c:if>
         		
                 <form class="form-signin" role="form" method="post" action="AdminServlet" data-toggle="validator">
                 	<div class="form-group">

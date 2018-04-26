@@ -50,6 +50,38 @@
 	%>
 </c:if>
 
+<c:if test="${not empty success_message_dashboard}">
+	<div class="alert alert-success alert-dismissible" role="alert">
+	  	<strong>Success!</strong> ${success_message_dashboard}
+	</div>
+	<script type="text/javascript">
+		setTimeout(function() {
+			$('.alert-success.alert-dismissible').fadeOut('slow', function() {
+				$('.alert-success.alert-dismissible').alert('close');
+			});
+		}, 4000)
+	</script>
+	<%
+		session.removeAttribute("success_message_dashboard");
+	%>
+</c:if>
+
+<c:if test="${not empty error_message_dashboard}">
+	<div class="alert alert-danger alert-dismissible" role="alert">
+	  	<strong>Error!</strong> ${error_message_dashboard}
+	</div>
+	<script type="text/javascript">
+		setTimeout(function() {
+			$('.alert-danger.alert-dismissible').fadeOut('slow', function() {
+				$('.alert-danger.alert-dismissible').alert('close');
+			});
+		}, 4000)
+	</script>
+	<%
+		session.removeAttribute("error_message_dashboard");
+	%>
+</c:if>
+
 <nav class="navbar navbar-default navbar-fixed-top main">
     <div class="container-fluid">
     	<ul class="nav navbar-nav show-menu">

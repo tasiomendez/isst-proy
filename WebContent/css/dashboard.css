@@ -16,6 +16,16 @@ body .navbar {
 	display: block !important;
 }
 
+.alert-success.alert-dismissible,
+.alert-danger.alert-dismissible {
+	position: absolute;
+	z-index: 1000;
+	margin-left: auto;
+	width: calc(100% - 75px);
+	margin-left: 75px;
+	text-align: center;
+}
+
 .navbar {
 	overflow: visible !important;
 }

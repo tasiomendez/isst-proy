@@ -204,5 +204,14 @@
 					"${tareai.planned_hours}", "${tareai.estado}")
 		</script>
 	</c:forEach>
+	
+	<div class="modal fade" id="error-task" tabindex="-1" role="dialog" aria-labelledby="error-task" data-keyboard="false" data-backdrop="static">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	        <h4 class="modal-body" id="myModalLabel">Something went wrong. Sorry for the inconvenience.<br/>Please try again later...</h4>
+	    </div>
+	  </div>
+	</div>	
+
 </body>
 </html>

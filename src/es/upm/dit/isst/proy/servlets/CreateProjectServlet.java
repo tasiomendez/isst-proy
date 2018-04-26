@@ -29,25 +29,21 @@ public class CreateProjectServlet extends HttpServlet{
 		String title= req.getParameter("title");
 		String description=req.getParameter("description");
 		String initialDate=req.getParameter("initialDate");
-		System.out.println(initialDate);
 		String finalDate=req.getParameter("finalDate");
 		//Email del gestor
 		String email = (String) req.getSession().getAttribute("email");
-
 		Usuario gestor = UsuarioDAOImplementation.getInstance().readUsuario(email);
 
 		Proyecto proyecto=new Proyecto();
-		System.out.println("ID de proyecto:"+proyecto.getId());
 		proyecto.setTitulo(title);
 		proyecto.setDescripcion(description);
-
 		proyecto.setFechaInicio(initialDate);
 		proyecto.setFechaFinal(finalDate);
 
 		//Project-code: hash del titulo y de la fecha de creacion
 		Date today = new Date();		
 		String code= title+today.toString();
-		int hash = Math.abs(code.hashCode()%1000);
+		int hash = Math.abs(code.hashCode() % 1000);
 		proyecto.setProject_code(hash);
 		proyecto.setAcabado(false);
 
@@ -55,7 +51,6 @@ public class CreateProjectServlet extends HttpServlet{
 
 		//Crear un Contrato del Gestor con el proyecto creado
 		Contrato contrato=new Contrato();
-		System.out.println("ID de contrato:"+contrato.getId());
 		contrato.setProyecto(proyecto);
 		contrato.setUsuario(gestor);
 		ContratoDAOImplementation.getInstance().createContrato(contrato);
@@ -71,6 +66,7 @@ public class CreateProjectServlet extends HttpServlet{
 			proyectos[i]=contratos.get(i).getProyecto();
 		}
 		req.getSession().setAttribute("project_list",proyectos );
+		req.getSession().setAttribute("success_message_dashboard", "El proyecto ha sido creado con éxito.");
 
 		resp.sendRedirect(req.getContextPath());	
 	}

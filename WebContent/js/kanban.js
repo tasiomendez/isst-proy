@@ -222,6 +222,7 @@ function updateDB(action,card){
 		method:'POST',
 		error: function(error) {
 			console.log(error);
+			$('#error-task').modal('show');
 		},
 		success: function(response) {
 			console.log(response)

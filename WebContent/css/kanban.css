@@ -222,3 +222,25 @@ input[type=text] {
 	right: 0;
 	bottom: 15px;
 }
+
+#error-task {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#error-task .modal-body {
+	text-align: center;
+	border-radius: 5px;
+	color: #b94a48;
+	background-color: #f2a9a94d;
+	border: 1px solid #b94a48;
+	margin: 0;
+}
+
+
+
+
+
+
+
