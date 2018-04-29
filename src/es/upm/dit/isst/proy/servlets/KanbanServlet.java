@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.upm.dit.isst.proy.dao.ProyectoDAOImplementation;
+import es.upm.dit.isst.proy.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.proy.dao.model.Contrato;
+import es.upm.dit.isst.proy.dao.model.Job;
 import es.upm.dit.isst.proy.dao.model.Proyecto;
+import es.upm.dit.isst.proy.dao.model.Tarea;
 import es.upm.dit.isst.proy.dao.model.Usuario;
 
 @WebServlet("/KanbanServlet")
@@ -30,15 +33,34 @@ public class KanbanServlet extends HttpServlet{
 	}
 	
 	private void redirectToKanban(HttpServletRequest req, HttpServletResponse resp, String project_code) throws ServletException, IOException {
-		Proyecto proyecto=ProyectoDAOImplementation.getInstance().readProyectoFromProjectCode(Integer.parseInt(project_code));
-		req.getSession().setAttribute("tareas_list",proyecto.getTareas());
+		Proyecto proyecto = ProyectoDAOImplementation.getInstance().readProyectoFromProjectCode(Integer.parseInt(project_code));
+		if (UsuarioDAOImplementation.getInstance().readUsuario((String) req.getSession().getAttribute("email")).getRol() == 1) {
+			req.getSession().setAttribute("tareas_list",proyecto.getTareas());
+		} else {
+			ArrayList<Tarea> tareas_list = new ArrayList<Tarea>();
+			tareas_list.addAll(proyecto.getTareas());
+			ArrayList<Tarea> tareas_user_list = new ArrayList<Tarea>();
+			ArrayList<Tarea> tareas_no_user_list = new ArrayList<Tarea>();
+			for (int i = 0; i < tareas_list.size(); i++) {
+				ArrayList<Job> jobs = new ArrayList<Job>();
+				jobs.addAll(tareas_list.get(i).getJobs());
+				for (int j = 0; j < jobs.size(); j++) {
+					if (jobs.get(j).getUsuario().getEmail() == req.getSession().getAttribute("email"))
+						tareas_user_list.add(tareas_list.get(i));
+					else
+						tareas_no_user_list.add(tareas_list.get(i));
+				}
+			}
+			req.getSession().setAttribute("tareas_user_list", tareas_user_list);
+			req.getSession().setAttribute("tareas_no_user_list", tareas_no_user_list);
+		}
 		req.getSession().setAttribute("project_title",proyecto.getTitulo());
 		//Necesitamos la lista de trabajadores asociados a un proyecto para poder asociarles tareas
-		ArrayList<Contrato> contratos= new ArrayList<Contrato>();
+		ArrayList<Contrato> contratos = new ArrayList<Contrato>();
 		contratos.addAll(proyecto.getContratos());
-		ArrayList<Usuario> trabajadores=new ArrayList<Usuario>();
-		for(int i =0;i<contratos.size();i++) {
-			if(contratos.get(i).getUsuario().getRol()==3) {
+		ArrayList<Usuario> trabajadores = new ArrayList<Usuario>();
+		for(int i =0; i < contratos.size(); i++) {
+			if(contratos.get(i).getUsuario().getRol() == 3) {
 				trabajadores.add(contratos.get(i).getUsuario());
 			}
 		}

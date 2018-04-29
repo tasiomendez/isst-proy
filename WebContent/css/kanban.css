@@ -106,7 +106,13 @@ nav.navbar-default .navbar-header-brand small {
 	margin-bottom: 5px;
 	padding: 8px 10px;
 	-webkit-transition: all 0.3 ease;
-	color: #000
+	color: #000;
+	cursor: grab;
+}
+
+.card.no-draggable {
+	cursor: initial;
+	background: #ccc !important;
 }
 
 .card .task-title {
@@ -133,9 +139,9 @@ nav.navbar-default .navbar-header-brand small {
 	opacity: 0.8;
 }
 
-.card:hover {
+/*.card:hover {
 	opacity: 0.7;
-}
+}*/
 
 .card.dragging {
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -227,6 +233,7 @@ input[type=text] {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	z-index: -1;
 }
 
 #error-task .modal-body {
@@ -236,6 +243,34 @@ input[type=text] {
 	background-color: #f2a9a94d;
 	border: 1px solid #b94a48;
 	margin: 0;
+}
+
+.form-worked-hours, .worked-hours {
+	padding-top: 10px;
+	margin-top: 10px;
+	border-top: 1px solid #ddd;
+}
+
+.form-worked-hours input {
+	width: 63%;
+	margin-right: 2%;
+}
+
+.form-worked-hours button {
+	width: 33%;
+}
+
+.worked-hours table {
+	width: 100%;
+}
+
+.worked-hours .worked-hours-submitted {
+	padding: 4px;
+	background-color: #ddd;
+	border: 1px solid #bab9b9;
+	border-radius: 5px;
+	margin-bottom: 3px;
+	cursor: text;
 }
 
 

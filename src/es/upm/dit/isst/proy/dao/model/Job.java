@@ -5,13 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 @Entity
 public class Job {
 
 	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
-	private int horas_hechas=0;
-	private int horas_planificadas=0;
+	private int horas_hechas = 0;
+	private int horas_planificadas = 0;
 	
 	@ManyToOne
 	private Usuario usuario;

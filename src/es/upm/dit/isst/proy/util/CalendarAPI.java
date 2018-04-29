@@ -5,11 +5,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +25,7 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.CalendarList;
 import com.google.api.services.calendar.model.CalendarListEntry;
 import com.google.api.services.calendar.model.Event;
-import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
-import com.google.api.services.calendar.model.EventReminder;
 import com.google.api.services.calendar.model.Events;
 
 public class CalendarAPI {
@@ -104,13 +100,13 @@ public class CalendarAPI {
 			e.printStackTrace();
 		} 
 		SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		
+
 		DateTime startDateTime = new DateTime(dt1.format(dateSale));
 		EventDateTime start = new EventDateTime()
 				.setDateTime(startDateTime)
 				.setTimeZone("Europe/Madrid");
 		event.setStart(start);
-		
+
 		DateTime endDateTime = new DateTime(dt1.format(dateSale));
 		EventDateTime end = new EventDateTime()
 				.setDateTime(endDateTime)
@@ -131,7 +127,7 @@ public class CalendarAPI {
 		} while (pageToken != null);
 		return items;
 	}
-	
+
 	public String insertCalendars(String userId, String idCalendario) throws IOException {
 		// Create a new calendar
 		com.google.api.services.calendar.model.Calendar calendar = new com.google.api.services.calendar.model.Calendar();
@@ -140,7 +136,7 @@ public class CalendarAPI {
 		// Insert the new calendar
 		com.google.api.services.calendar.model.Calendar createdCalendar = getCalendarService(userId).calendars().insert(calendar).execute();
 		return createdCalendar.getId();
-		
+
 	}
 
 

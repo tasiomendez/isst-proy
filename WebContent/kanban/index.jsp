@@ -58,7 +58,8 @@
 				<!-- TO DO -->
 				<div data-id="1" id="list_1" class="list">
 					<h3 class="listname">Todo</h3>
-
+					
+					<%-- Lista de tareas de todo el proyecto --%>
 					<c:forEach items="${tareas_list}" var="tareai">
 						<c:if test="${tareai.estado == 'todo'}">
 							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
@@ -67,9 +68,42 @@
 								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
-								<!-- <input type="hidden" name="horas_hechas"
-									placeholder="Introduce las horas hechas"> <input
-									type="submit" class="saveHours" value="${tareai.id}" />-->
+								<form class="form-worked-hours" role="form">
+									<input type="hidden" name="id" value="${tareai.id}" />
+									<input type="number" name="worked-hours" placeholder="Hours..." required />
+									<button type="submit">Send</button>
+								</form>
+							</div>
+						</c:if>
+					</c:forEach>
+					
+					<%-- Lista de tareas del usuario logueado --%>
+					<c:forEach items="${tareas_user_list}" var="tareai">
+						<c:if test="${tareai.estado == 'todo'}">
+							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
+								<c:if test="${role == 1}">
+									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
+								</c:if>
+								<div class="task-title">${tareai.titulo}</div>
+								<div class="task-description">${tareai.descripcion}</div>
+								<form class="form-worked-hours" role="form">
+									<input type="hidden" name="id" value="${tareai.id}" />
+									<input type="number" name="worked-hours" placeholder="Hours..." required />
+									<button type="submit">Send</button>
+								</form>
+							</div>
+						</c:if>
+					</c:forEach>
+					
+					<%-- Lista de tareas del otros usuarios --%>
+					<c:forEach items="${tareas_no_user_list}" var="tareai">
+						<c:if test="${tareai.estado == 'todo'}">
+							<div draggable="false" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card no-draggable">
+								<c:if test="${role == 1}">
+									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
+								</c:if>
+								<div class="task-title">${tareai.titulo}</div>
+								<div class="task-description">${tareai.descripcion}</div>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -79,7 +113,8 @@
 				<!-- DOING -->
 				<div data-id="2" id="list_2" class="list">
 					<h3 class="listname">In Progress</h3>
-
+					
+					<%-- Lista de tareas de todo el proyecto --%>
 					<c:forEach items="${tareas_list}" var="tareai">
 						<c:if test="${tareai.estado == 'doing'}">
 							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
@@ -88,9 +123,44 @@
 								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
-								<!-- <input type="hidden" name="horas_hechas"
-									placeholder="Introduce las horas hechas"> <input
-									type="submit" class="saveHours" value="${tareai.id}" />-->
+								<div class="worked-hours">
+									<table>
+										<tr><td>Worked</td><td style="text-align: right;">5</td>
+										<tr><td>Planned</td><td style="text-align: right;">10</td>
+									</table>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
+					
+					<%-- Lista de tareas del usuario logueado --%>
+					<c:forEach items="${tareas_user_list}" var="tareai">
+						<c:if test="${tareai.estado == 'doing'}">
+							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
+								<c:if test="${role == 1}">
+									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
+								</c:if>
+								<div class="task-title">${tareai.titulo}</div>
+								<div class="task-description">${tareai.descripcion}</div>
+								<div class="worked-hours">
+									<table>
+										<tr><td>Worked</td><td style="text-align: right;">5</td>
+										<tr><td>Planned</td><td style="text-align: right;">10</td>
+									</table>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
+					
+					<%-- Lista de tareas del otros usuarios --%>
+					<c:forEach items="${tareas_no_user_list}" var="tareai">
+						<c:if test="${tareai.estado == 'doing'}">
+							<div draggable="false" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card no-draggable">
+								<c:if test="${role == 1}">
+									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
+								</c:if>
+								<div class="task-title">${tareai.titulo}</div>
+								<div class="task-description">${tareai.descripcion}</div>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -100,7 +170,8 @@
 				<!-- DONE -->
 				<div data-id="3" id="list_3" class="list">
 					<h3 class="listname">Done</h3>
-
+					
+					<%-- Lista de tareas de todo el proyecto --%>
 					<c:forEach items="${tareas_list}" var="tareai">
 						<c:if test="${tareai.estado == 'done'}">
 							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
@@ -109,9 +180,38 @@
 								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
-								<!-- <input type="hidden" name="horas_hechas"
-									placeholder="Introduce las horas hechas"> <input
-									type="submit" class="saveHours" value="${tareai.id}" />-->
+								<div class="worked-hours">
+									<div class="worked-hours-submitted">25</div>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
+					
+					<%-- Lista de tareas del usuario logueado --%>
+					<c:forEach items="${tareas_user_list}" var="tareai">
+						<c:if test="${tareai.estado == 'done'}">
+							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
+								<c:if test="${role == 1}">
+									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
+								</c:if>
+								<div class="task-title">${tareai.titulo}</div>
+								<div class="task-description">${tareai.descripcion}</div>
+								<div class="worked-hours">
+									<div class="worked-hours-submitted">25</div>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
+					
+					<%-- Lista de tareas del otros usuarios --%>
+					<c:forEach items="${tareas_no_user_list}" var="tareai">
+						<c:if test="${tareai.estado == 'done'}">
+							<div draggable="false" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card no-draggable">
+								<c:if test="${role == 1}">
+									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
+								</c:if>
+								<div class="task-title">${tareai.titulo}</div>
+								<div class="task-description">${tareai.descripcion}</div>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -199,6 +299,18 @@
 	</c:if>
 
 	<c:forEach items="${tareas_list}" var="tareai">
+		<script type="text/javascript">
+			importCard("${tareai.id}", "${tareai.titulo}", "${tareai.descripcion}", 
+					"${tareai.planned_hours}", "${tareai.estado}")
+		</script>
+	</c:forEach>
+	<c:forEach items="${tareas_user_list}" var="tareai">
+		<script type="text/javascript">
+			importCard("${tareai.id}", "${tareai.titulo}", "${tareai.descripcion}", 
+					"${tareai.planned_hours}", "${tareai.estado}")
+		</script>
+	</c:forEach>
+	<c:forEach items="${tareas_no_user_list}" var="tareai">
 		<script type="text/javascript">
 			importCard("${tareai.id}", "${tareai.titulo}", "${tareai.descripcion}", 
 					"${tareai.planned_hours}", "${tareai.estado}")
