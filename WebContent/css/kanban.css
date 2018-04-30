@@ -112,7 +112,7 @@ nav.navbar-default .navbar-header-brand small {
 
 .card.no-draggable {
 	cursor: initial;
-	background: #ccc !important;
+	opacity: 0.7;
 }
 
 .card .task-title {
@@ -246,8 +246,8 @@ input[type=text] {
 }
 
 .form-worked-hours, .worked-hours {
-	padding-top: 10px;
-	margin-top: 10px;
+	padding-top: 7px;
+	margin-top: 7px;
 	border-top: 1px solid #ddd;
 }
 
@@ -262,6 +262,11 @@ input[type=text] {
 
 .worked-hours table {
 	width: 100%;
+	font-size: smaller;
+}
+
+.worked-hours table tr, .worked-hours table td {
+	padding: 0 5px;
 }
 
 .worked-hours .worked-hours-submitted {

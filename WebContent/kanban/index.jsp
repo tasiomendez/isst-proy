@@ -68,11 +68,14 @@
 								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
-								<form class="form-worked-hours" role="form">
-									<input type="hidden" name="id" value="${tareai.id}" />
-									<input type="number" name="worked-hours" placeholder="Hours..." required />
-									<button type="submit">Send</button>
-								</form>
+								<c:if test="${role == 1}">
+									<div class="worked-hours">
+										<table>
+											<tr><td>Worked</td><td style="text-align: right;">5</td>
+											<tr><td>Planned</td><td style="text-align: right;">10</td>
+										</table>
+									</div>
+								</c:if>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -81,16 +84,28 @@
 					<c:forEach items="${tareas_user_list}" var="tareai">
 						<c:if test="${tareai.estado == 'todo'}">
 							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
-								<c:if test="${role == 1}">
-									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
-								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
-								<form class="form-worked-hours" role="form">
-									<input type="hidden" name="id" value="${tareai.id}" />
-									<input type="number" name="worked-hours" placeholder="Hours..." required />
-									<button type="submit">Send</button>
-								</form>
+								<c:choose>
+								    <c:when test="${role == 1}">
+								       	<table>
+											<tr><td>Worked</td><td style="text-align: right;">5</td>
+											<tr><td>Planned</td><td style="text-align: right;">10</td>
+										</table>
+								    </c:when>   
+								    <c:when test="${role == 3}">
+								    	<form class="form-worked-hours" role="form">
+											<input type="hidden" name="id" value="${tareai.id}" />
+											<input type="number" name="worked-hours" placeholder="Hours..." required />
+											<button type="submit">Send</button>
+										</form>
+								    </c:when>  
+								    <c:otherwise>
+								        <div class="worked-hours">
+											<div class="worked-hours-submitted">25</div>
+										</div>
+								    </c:otherwise>
+								</c:choose>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -99,9 +114,6 @@
 					<c:forEach items="${tareas_no_user_list}" var="tareai">
 						<c:if test="${tareai.estado == 'todo'}">
 							<div draggable="false" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card no-draggable">
-								<c:if test="${role == 1}">
-									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
-								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
 							</div>
@@ -123,12 +135,14 @@
 								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
-								<div class="worked-hours">
-									<table>
-										<tr><td>Worked</td><td style="text-align: right;">5</td>
-										<tr><td>Planned</td><td style="text-align: right;">10</td>
-									</table>
-								</div>
+								<c:if test="${role == 1}">
+									<div class="worked-hours">
+										<table>
+											<tr><td>Worked</td><td style="text-align: right;">5</td>
+											<tr><td>Planned</td><td style="text-align: right;">10</td>
+										</table>
+									</div>
+								</c:if>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -137,16 +151,10 @@
 					<c:forEach items="${tareas_user_list}" var="tareai">
 						<c:if test="${tareai.estado == 'doing'}">
 							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
-								<c:if test="${role == 1}">
-									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
-								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
 								<div class="worked-hours">
-									<table>
-										<tr><td>Worked</td><td style="text-align: right;">5</td>
-										<tr><td>Planned</td><td style="text-align: right;">10</td>
-									</table>
+									<div class="worked-hours-submitted">25</div>
 								</div>
 							</div>
 						</c:if>
@@ -156,9 +164,6 @@
 					<c:forEach items="${tareas_no_user_list}" var="tareai">
 						<c:if test="${tareai.estado == 'doing'}">
 							<div draggable="false" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card no-draggable">
-								<c:if test="${role == 1}">
-									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
-								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
 							</div>
@@ -180,9 +185,14 @@
 								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
-								<div class="worked-hours">
-									<div class="worked-hours-submitted">25</div>
-								</div>
+								<c:if test="${role == 1}">
+									<div class="worked-hours">
+										<table>
+											<tr><td>Worked</td><td style="text-align: right;">5</td>
+											<tr><td>Planned</td><td style="text-align: right;">10</td>
+										</table>
+									</div>
+								</c:if>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -191,9 +201,6 @@
 					<c:forEach items="${tareas_user_list}" var="tareai">
 						<c:if test="${tareai.estado == 'done'}">
 							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
-								<c:if test="${role == 1}">
-									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
-								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
 								<div class="worked-hours">
@@ -207,9 +214,6 @@
 					<c:forEach items="${tareas_no_user_list}" var="tareai">
 						<c:if test="${tareai.estado == 'done'}">
 							<div draggable="false" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card no-draggable">
-								<c:if test="${role == 1}">
-									<button type="button" class="close" id="buttonCard${tareai.id}"><span aria-hidden="true">&times;</span></button>
-								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
 							</div>
