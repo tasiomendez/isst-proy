@@ -25,7 +25,7 @@ public class Usuario {
 	private Set<Contrato> contratos;
 
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
-	private Set<Job> jobs;
+	private Set<Tarea> tareas;
 
 
 	public Usuario() {}
@@ -86,12 +86,12 @@ public class Usuario {
 		this.departamento = departamento;
 	}
 
-	public Set<Job> getJobs() {
-		return jobs;
+	public Set<Tarea> getTareas() {
+		return tareas;
 	}
 
-	public void setJobs(Set<Job> jobs) {
-		this.jobs = jobs;
+	public void setJobs(Set<Tarea> tareas) {
+		this.tareas = tareas;
 	}
 
 	public Set<Contrato> getContratos() {

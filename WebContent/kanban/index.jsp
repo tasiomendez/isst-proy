@@ -17,6 +17,12 @@
 <!-- Validator -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 
+<!-- Datepicker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
 <script type="text/javascript">
 	window.onload = function() {
 		if (sessionStorage.getItem('menu') != null)
@@ -71,8 +77,8 @@
 								<c:if test="${role == 1}">
 									<div class="worked-hours">
 										<table>
-											<tr><td>Worked</td><td style="text-align: right;">5</td>
-											<tr><td>Planned</td><td style="text-align: right;">10</td>
+											<tr><td>Worked</td><td style="text-align: right;">${tareai.worked_hours}</td>
+											<tr><td>Planned</td><td style="text-align: right;">${tareai.planned_hours}</td>
 										</table>
 									</div>
 								</c:if>
@@ -89,12 +95,12 @@
 								<c:choose>
 								    <c:when test="${role == 1}">
 								       	<table>
-											<tr><td>Worked</td><td style="text-align: right;">5</td>
-											<tr><td>Planned</td><td style="text-align: right;">10</td>
+											<tr><td>Worked</td><td style="text-align: right;">${tareai.worked_hours}</td>
+											<tr><td>Planned</td><td style="text-align: right;">${tareai.planned_hours}</td>
 										</table>
 								    </c:when>   
-								    <c:when test="${role == 3}">
-								    	<form class="form-worked-hours" role="form">
+								    <c:when test="${tareai.worked_hours==0}">
+								    	<form id="form-worked-hours" class="form-worked-hours" role="form">
 											<input type="hidden" name="id" value="${tareai.id}" />
 											<input type="number" name="worked-hours" placeholder="Hours..." required />
 											<button type="submit">Send</button>
@@ -102,7 +108,7 @@
 								    </c:when>  
 								    <c:otherwise>
 								        <div class="worked-hours">
-											<div class="worked-hours-submitted">25</div>
+											<div class="worked-hours-submitted">${tareai.worked_hours}</div>
 										</div>
 								    </c:otherwise>
 								</c:choose>
@@ -138,8 +144,8 @@
 								<c:if test="${role == 1}">
 									<div class="worked-hours">
 										<table>
-											<tr><td>Worked</td><td style="text-align: right;">5</td>
-											<tr><td>Planned</td><td style="text-align: right;">10</td>
+											<tr><td>Worked</td><td style="text-align: right;">${tareai.worked_hours}</td>
+											<tr><td>Planned</td><td style="text-align: right;">${tareai.planned_hours}</td>
 										</table>
 									</div>
 								</c:if>
@@ -153,9 +159,26 @@
 							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
-								<div class="worked-hours">
-									<div class="worked-hours-submitted">25</div>
-								</div>
+								<c:choose>
+								    <c:when test="${role == 1}">
+								       	<table>
+											<tr><td>Worked</td><td style="text-align: right;">${tareai.worked_hours}</td>
+											<tr><td>Planned</td><td style="text-align: right;">${tareai.planned_hours}</td>
+										</table>
+								    </c:when>   
+								    <c:when test="${tareai.worked_hours==0}">
+								    	<form id="form-worked-hours" class="form-worked-hours" role="form">
+											<input type="hidden" name="id" value="${tareai.id}" />
+											<input type="number" name="worked-hours" placeholder="Hours..." required />
+											<button type="submit">Send</button>
+										</form>
+								    </c:when>  
+								    <c:otherwise>
+								        <div class="worked-hours">
+											<div class="worked-hours-submitted">${tareai.worked_hours}</div>
+										</div>
+								    </c:otherwise>
+								</c:choose>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -188,8 +211,8 @@
 								<c:if test="${role == 1}">
 									<div class="worked-hours">
 										<table>
-											<tr><td>Worked</td><td style="text-align: right;">5</td>
-											<tr><td>Planned</td><td style="text-align: right;">10</td>
+											<tr><td>Worked</td><td style="text-align: right;">${tareai.worked_hours}</td>
+											<tr><td>Planned</td><td style="text-align: right;">${tareai.planned_hours}</td>
 										</table>
 									</div>
 								</c:if>
@@ -203,9 +226,26 @@
 							<div draggable="true" data-id="${tareai.id}" data--state="${tareai.estado}" id="${tareai.id}" class="card">
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
-								<div class="worked-hours">
-									<div class="worked-hours-submitted">25</div>
-								</div>
+								<c:choose>
+								    <c:when test="${role == 1}">
+								       	<table>
+											<tr><td>Worked</td><td style="text-align: right;">${tareai.worked_hours}</td>
+											<tr><td>Planned</td><td style="text-align: right;">${tareai.planned_hours}</td>
+										</table>
+								    </c:when>   
+								    <c:when test="${tareai.worked_hours==0}">
+								    	<form id="form-worked-hours" class="form-worked-hours" role="form">
+											<input type="hidden" name="id" value="${tareai.id}" />
+											<input type="number" name="worked-hours" placeholder="Hours..." required />
+											<button type="submit">Send</button>
+										</form>
+								    </c:when>  
+								    <c:otherwise>
+								        <div class="worked-hours">
+											<div class="worked-hours-submitted">${tareai.worked_hours}</div>
+										</div>
+								    </c:otherwise>
+								</c:choose>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -252,13 +292,13 @@
 		      <form id="select-calendar-form" action="CreateTareaServlet" method="post" role="form" data-toggle="validator">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="title">Título</label> 
-						<input type="text" name="title" id="title" class="form-control" placeholder="Título de la tarea" required>
+						<label for="title">TÃ­tulo</label> 
+						<input type="text" name="title" id="title" class="form-control" placeholder="TÃ­tulo de la tarea" required>
 					</div>
 					
 					<div class="form-group">
-	                	<label for="description">Descripción</label>
-	                	<textarea rows="4" cols="50" class="form-control" name="description" id="description" placeholder="Descripción de la tarea" style="resize: none;"></textarea> 
+	                	<label for="description">DescripciÃ³n</label>
+	                	<textarea rows="4" cols="50" class="form-control" name="description" id="description" placeholder="DescripciÃ³n de la tarea" style="resize: none;"></textarea> 
 					</div>
 					
 					<div class="form-group">
@@ -279,9 +319,29 @@
 					
 					<div class="form-group">
 						<label for="planned_hours">Horas asignadas a la tarea</label> 
-						<input type="number" name="planned_hours" id="planned_hours" class="form-control" placeholder="Número de horas asignadas a la tarea" required>
+						<input type="number" name="planned_hours" id="planned_hours" class="form-control" placeholder="NÃºmero de horas asignadas a la tarea" required>
 					</div>
-		    
+		    		
+		    		<div class="form-group" style="padding: 0;">
+						<label for="finalDate">Fecha lÃ­mite de la tarea</label>
+				        <div class='input-group date' id='initialEventDate'>
+				            <input type='text' name="finalDate" class="form-control" placeholder="Fecha lÃ­mite" onclick="$('#initialEventDate').datetimepicker('show');" required/>
+				            <span class="input-group-addon">
+				                <span class="glyphicon glyphicon-calendar"></span>
+				            </span>
+				        </div>
+				    </div>
+				    
+					<script type="text/javascript">
+					    $(function () {
+					        $('#initialEventDate').datetimepicker({
+					        	viewMode: 'years',
+					        	locale: 'es',
+					        	format: 'DD-MM-YYYY HH:mm'
+					        });
+					    });
+					</script>
+							
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-primary btn-block disabled" type="submit">Add task</button>

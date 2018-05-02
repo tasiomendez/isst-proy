@@ -1,10 +1,11 @@
 package es.upm.dit.isst.proy.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,13 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.extensions.servlet.auth.oauth2.AbstractAuthorizationCodeServlet;
-import com.google.api.client.http.GenericUrl;
 import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
-import com.google.api.services.calendar.model.*;
-import java.util.List;
 
 import es.upm.dit.isst.proy.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.proy.util.CalendarAPI;

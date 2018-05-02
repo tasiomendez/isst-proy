@@ -1,16 +1,12 @@
 package es.upm.dit.isst.proy.dao.model;
 
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -22,14 +18,32 @@ public class Tarea {
 	private String descripcion;
 	private int planned_hours;
 	private String estado;
-	
-	@OneToMany(mappedBy="tarea", cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
-	private List<Job> jobs;
+	private int worked_hours;
+	private String fecha_entrega;
+
+	@ManyToOne
+	private Proyecto proyecto;
 	
 	@ManyToOne
-	private Proyecto proyecto;	
+	private Usuario usuario;
 
 	public Tarea() {}
+	
+	public String getFecha_entrega() {
+		return fecha_entrega;
+	}
+
+	public void setFecha_entrega(String fecha_entrega) {
+		this.fecha_entrega = fecha_entrega;
+	}
+	
+	public int getWorked_hours() {
+		return worked_hours;
+	}
+
+	public void setWorked_hours(int worked_hours) {
+		this.worked_hours = worked_hours;
+	}
 	
 	public Proyecto getProyecto() {
 		return proyecto;
@@ -38,6 +52,15 @@ public class Tarea {
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
 	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -50,14 +73,6 @@ public class Tarea {
 		this.planned_hours = planned_hours;
 	}
 
-	public List<Job> getJobs() {
-		return jobs;
-	}
-
-	public void setJobs(List<Job> jobs) {
-		this.jobs = jobs;
-	}
-	
 	public String getTitulo() {
 		return titulo;
 	}

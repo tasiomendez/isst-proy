@@ -30,16 +30,16 @@ public class SearchProjectServlet extends HttpServlet{
 			response="No existe proyecto con este project code.";
 			resp.setStatus(404);;
 		}else {
-			boolean isJoined=false;
+			boolean isJoined = false;
 			ArrayList<Contrato> contratos = new ArrayList<Contrato>();
 			contratos.addAll(proyecto.getContratos());
 			for(int i=0;i<contratos.size();i++) {
 				if(contratos.get(i).getUsuario().getEmail().equals(email)) {
-					isJoined=true;
+					isJoined = true;
 					break;
 				}
 			}
-			response=proyecto.toString()+"\\&\\"+isJoined;
+			response=proyecto.toString() + "\\&\\" + isJoined;
 		}
 		resp.getWriter().write(response);
 	}

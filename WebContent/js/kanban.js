@@ -189,12 +189,6 @@ function moveCard(cardId, newListId, index) {
 	}
 }
 
-function saveHours(){
-	var id_card=document.getElementsByName("id_card");
-	var horas_hechas=document.getElementsByName("horas_hechas");
-	var card = getTodo({_id: id_card});
-	card["hours_done"]=horas_hechas;
-}
 
 function getCardPlaceholder () {
 	if(!UI.elCardPlaceholder) { // Create if not exists
@@ -204,28 +198,25 @@ function getCardPlaceholder () {
 	return UI.elCardPlaceholder;
 }
 
-$(".saveHours").on("submit", function() {
-	var id_card=document.getElementsByName("id_card");
-	var horas_hechas=document.getElementsByName("horas_hechas");
-	var card = getTodo({_id: id_card});
-	card["hours_done"]=horas_hechas;
-});
 
-function updateDB(action,card){
+function updateDB(action,card, success, error){
 	$.ajax({
 		url: 'UpdateKanbanServlet',
 		data: {
 			action:action, 
 			id_card:card["_id"],
-			state_card:card["cardState"]
+			state_card:card["cardState"],
+			worked_hours:card["hours_done"]
 		},
 		method:'POST',
 		error: function(error) {
 			console.log(error);
-			$('#error-task').css('z-index', '2000').modal('show');
+			if (error) { error(); }
+			else { $('#error-task').css('z-index', '2000').modal('show'); }
 		},
 		success: function(response) {
 			console.log(response)
+			if (success) { success(); }
 		},
 	});
 } 
@@ -235,10 +226,34 @@ function init () {
 	moveCard(2, 1, 3);
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+$(document).ready(function() {
 	init();
+	
+	// Form upload hours
+	$("#form-worked-hours").submit(function(e) {
+		e.preventDefault();
+		console.log($("#form-worked-hours input[name=id]").val());
+		console.log($("#form-worked-hours input[name=worked-hours]").val());
+		var id_card=$("#form-worked-hours input[name=id]").val();
+		var worked_hours=$("#form-worked-hours input[name=worked-hours]").val();
+		
+		var card = todos[getIndexCard(id_card)];
+		
+		
+		card["hours_done"]=worked_hours;
+		console.log(card);
+		var form=$(this);
+		updateDB("saveHours",card,function(){
+			var firstDiv = $('<div>').attr('class', 'worked-hours');
+			$('<div>').attr('class', 'worked-hours-submitted').text(worked_hours).appendTo(firstDiv);
+			firstDiv.appendTo($('div[data-id=' +id_card + ']'));
+			form.remove();
+		})
+		
+		
+	});
+	
 });
-
 
 
 

@@ -13,5 +13,4 @@ public interface UsuarioDAO {
 	public Usuario loginUsuario(String email, String password);
 	public List<Proyecto> readAllProyectoFromUser(String email);
 	public List<Usuario> readAllUsuario();
-
 }

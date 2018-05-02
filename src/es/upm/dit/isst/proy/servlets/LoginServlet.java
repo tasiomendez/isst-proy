@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.upm.dit.isst.proy.dao.ProyectoDAOImplementation;
 import es.upm.dit.isst.proy.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.proy.dao.model.Contrato;
 import es.upm.dit.isst.proy.dao.model.Proyecto;
