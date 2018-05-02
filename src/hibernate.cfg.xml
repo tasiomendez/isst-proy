@@ -18,7 +18,6 @@
         <property name="connection.useUnicode">true</property>
 		<property name="connection.characterEncoding">utf-8</property>
         <mapping class="es.upm.dit.isst.proy.dao.model.Contrato" />
-        <mapping class="es.upm.dit.isst.proy.dao.model.Job" />
         <mapping class="es.upm.dit.isst.proy.dao.model.Proyecto" />
         <mapping class="es.upm.dit.isst.proy.dao.model.Tarea" />
         <mapping class="es.upm.dit.isst.proy.dao.model.Usuario" />

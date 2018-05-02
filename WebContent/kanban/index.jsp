@@ -74,6 +74,7 @@
 								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
+								<div class="task-user">${tareai.usuario.nombre} (${tareai.usuario.email})</div>
 								<c:if test="${role == 1}">
 									<div class="worked-hours">
 										<table>
@@ -141,6 +142,7 @@
 								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
+								<div class="task-user">${tareai.usuario.nombre} (${tareai.usuario.email})</div>
 								<c:if test="${role == 1}">
 									<div class="worked-hours">
 										<table>
@@ -208,6 +210,7 @@
 								</c:if>
 								<div class="task-title">${tareai.titulo}</div>
 								<div class="task-description">${tareai.descripcion}</div>
+								<div class="task-user">${tareai.usuario.nombre} (${tareai.usuario.email})</div>
 								<c:if test="${role == 1}">
 									<div class="worked-hours">
 										<table>
@@ -292,13 +295,13 @@
 		      <form id="select-calendar-form" action="CreateTareaServlet" method="post" role="form" data-toggle="validator">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="title">TÃ­tulo</label> 
-						<input type="text" name="title" id="title" class="form-control" placeholder="TÃ­tulo de la tarea" required>
+						<label for="title">Tí­tulo</label> 
+						<input type="text" name="title" id="title" class="form-control" placeholder="Título de la tarea" required>
 					</div>
 					
 					<div class="form-group">
-	                	<label for="description">DescripciÃ³n</label>
-	                	<textarea rows="4" cols="50" class="form-control" name="description" id="description" placeholder="DescripciÃ³n de la tarea" style="resize: none;"></textarea> 
+	                	<label for="description">Descripción</label>
+	                	<textarea rows="4" cols="50" class="form-control" name="description" id="description" placeholder="Descripción de la tarea" style="resize: none;"></textarea> 
 					</div>
 					
 					<div class="form-group">
@@ -319,13 +322,13 @@
 					
 					<div class="form-group">
 						<label for="planned_hours">Horas asignadas a la tarea</label> 
-						<input type="number" name="planned_hours" id="planned_hours" class="form-control" placeholder="NÃºmero de horas asignadas a la tarea" required>
+						<input type="number" name="planned_hours" id="planned_hours" class="form-control" placeholder="Número de horas asignadas a la tarea" required>
 					</div>
 		    		
 		    		<div class="form-group" style="padding: 0;">
-						<label for="finalDate">Fecha lÃ­mite de la tarea</label>
+						<label for="finalDate">Fecha límite de la tarea</label>
 				        <div class='input-group date' id='initialEventDate'>
-				            <input type='text' name="finalDate" class="form-control" placeholder="Fecha lÃ­mite" onclick="$('#initialEventDate').datetimepicker('show');" required/>
+				            <input type='text' name="finalDate" class="form-control" placeholder="Fecha límite" onclick="$('#initialEventDate').datetimepicker('show');" required/>
 				            <span class="input-group-addon">
 				                <span class="glyphicon glyphicon-calendar"></span>
 				            </span>

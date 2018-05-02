@@ -46,19 +46,19 @@ function createCalendar(calendar, element, adjuster){
 	//Change month with keyboard
 	$(document).off('keyup');
 	$(document).on('keyup', function(e) {
-  		if (e.keyCode == 37) {
+  		if (e.keyCode == 37 && $('.main#calendar').attr('class') == 'main') {
 			typeof calendar.Options.ModelChange == 'function'?calendar.Model = calendar.Options.ModelChange():calendar.Model = calendar.Options.ModelChange;
 			createCalendar(calendar, element, -1);
   		}
-  		if (e.keyCode == 38) {
+  		if (e.keyCode == 38 && $('.main#calendar').attr('class') == 'main') {
 			typeof calendar.Options.ModelChange == 'function'?calendar.Model = calendar.Options.ModelChange():calendar.Model = calendar.Options.ModelChange;
 			createCalendar(calendar, element, 12);
   		}
-  		if (e.keyCode == 39) {
+  		if (e.keyCode == 39 && $('.main#calendar').attr('class') == 'main') {
   			typeof calendar.Options.ModelChange == 'function'?calendar.Model = calendar.Options.ModelChange():calendar.Model = calendar.Options.ModelChange;
 			createCalendar(calendar, element, 1);
   		}
-  		if (e.keyCode == 40) {
+  		if (e.keyCode == 40 && $('.main#calendar').attr('class') == 'main') {
 			typeof calendar.Options.ModelChange == 'function'?calendar.Model = calendar.Options.ModelChange():calendar.Model = calendar.Options.ModelChange;
 			createCalendar(calendar, element, -12);
   		}

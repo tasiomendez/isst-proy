@@ -129,6 +129,12 @@ nav.navbar-default .navbar-header-brand small {
 	font-size: 12px;
 }
 
+.card .task-user {
+	font-size: 10px;
+	padding-top: 3px;
+	text-align: right;
+}
+
 .card .close {
 	margin-top: -3px;
     margin-right: -3px;
