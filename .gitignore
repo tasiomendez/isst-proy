@@ -1,5 +1,6 @@
 resources/
 src/META-INF/
+src/hibernate.cfg.xml
 WebContent/META-INF/
 WebContent/WEB-INF/
 build/

@@ -118,7 +118,6 @@ public class UsuarioDAOImplementation implements UsuarioDAO{
 		return usuarios;
 	}
 
-
 	@Override
 	public List<Usuario> readAllUsuario(int role) {
 		List<Usuario> usuarios = new ArrayList<>();
