@@ -25,6 +25,14 @@ public class Proyecto {
 	@Lob
 	private byte[] document;
 	
+	public byte[] getDocument() {
+		return document;
+	}
+
+	public void setDocument(byte[] document) {
+		this.document = document;
+	}
+
 	@OneToMany(mappedBy="proyecto", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER) 
 	private Set<Tarea> tareas;
 	

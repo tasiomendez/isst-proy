@@ -80,8 +80,8 @@
 	                	<label for="role" style="width: 100%;">Role</label>
 	                    <select name="role" id="role" style="width: 100%;" required>
 	                    	<option value="" disabled selected>Select role</option>
-							<option value="2">RRHH</option>
 							<option value="1">Project Manager</option>
+							<option value="2">RRHH</option>
 	                    </select>
 	                </div>
 	                                	

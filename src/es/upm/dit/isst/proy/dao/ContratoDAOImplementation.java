@@ -14,18 +14,18 @@ public class ContratoDAOImplementation implements ContratoDAO {
 		}
 		return instance;
 	}
-	
+
 	@Override
 	public void createContrato(Contrato contrato) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-		     session.beginTransaction();
-		     session.save(contrato);
-		     session.getTransaction().commit();
+			session.beginTransaction();
+			session.save(contrato);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		     session.close();
+			session.close();
 		}		
 	}
 
@@ -34,13 +34,13 @@ public class ContratoDAOImplementation implements ContratoDAO {
 		Contrato contrato = null;
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	contrato = session.get(Contrato.class, id);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			contrato = session.get(Contrato.class, id);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 		return contrato;
 	}
@@ -49,31 +49,31 @@ public class ContratoDAOImplementation implements ContratoDAO {
 	public void updateContrato(Contrato contrato) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	session.saveOrUpdate(contrato);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			session.saveOrUpdate(contrato);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
-		
+
 	}
 
 	@Override
 	public void deleteContrato(Contrato contrato) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	session.delete(contrato);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			session.delete(contrato);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
-		
+
 	}
-	
+
 
 }

@@ -212,7 +212,7 @@
 		        form.appendTo($('#search-project .success-response .description-response'))
 		    },
 		    error: function(error) {
-		        console.log(error);
+		        console.error(error);
 		        $('#search-project .success-response .title-response').empty();
 		        $('#search-project .success-response .description-response').empty();
 		        if (error.status == 400 || error.status == 404)

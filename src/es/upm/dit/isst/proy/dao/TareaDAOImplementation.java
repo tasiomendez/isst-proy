@@ -14,18 +14,18 @@ public class TareaDAOImplementation implements TareaDAO {
 		}
 		return instance;
 	}
-	
+
 	@Override
 	public void createTarea(Tarea tarea) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-		     session.beginTransaction();
-		     session.save(tarea);
-		     session.getTransaction().commit();
+			session.beginTransaction();
+			session.save(tarea);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		     session.close();
+			session.close();
 		}		
 
 	}
@@ -35,13 +35,13 @@ public class TareaDAOImplementation implements TareaDAO {
 		Tarea tarea = null;
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	tarea = session.get(Tarea.class, id);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			tarea = session.get(Tarea.class, id);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 		return tarea;
 	}
@@ -50,13 +50,13 @@ public class TareaDAOImplementation implements TareaDAO {
 	public void updateTarea(Tarea tarea) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	session.saveOrUpdate(tarea);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			session.saveOrUpdate(tarea);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 
 	}
@@ -65,13 +65,13 @@ public class TareaDAOImplementation implements TareaDAO {
 	public void deleteTarea(Tarea tarea) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	session.delete(tarea);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			session.delete(tarea);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 
 	}

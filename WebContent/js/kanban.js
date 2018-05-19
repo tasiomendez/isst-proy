@@ -215,7 +215,7 @@ function updateDB(action,card, success, error){
 			else { $('#error-task').css('z-index', '2000').modal('show'); }
 		},
 		success: function(response) {
-			console.log(response)
+			console.error(response)
 			if (success) { success(); }
 		},
 	});

@@ -19,20 +19,20 @@ public class UsuarioDAOImplementation implements UsuarioDAO{
 		}
 		return instance;
 	}
-	
+
 	@Override
 	public void createUsuario(Usuario usuario) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-		     session.beginTransaction();
-		     session.save(usuario);
-		     session.getTransaction().commit();
+			session.beginTransaction();
+			session.save(usuario);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		     session.close();
+			session.close();
 		}
-		
+
 	}
 
 	@Override
@@ -40,13 +40,13 @@ public class UsuarioDAOImplementation implements UsuarioDAO{
 		Usuario usuario = null;
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	usuario = session.get(Usuario.class, email);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			usuario = session.get(Usuario.class, email);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 		return usuario;
 	}
@@ -55,30 +55,30 @@ public class UsuarioDAOImplementation implements UsuarioDAO{
 	public void updateUsuario(Usuario usuario) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	session.saveOrUpdate(usuario);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			session.saveOrUpdate(usuario);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
-		
+
 	}
 
 	@Override
 	public void deleteUsuario(Usuario usuario) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	session.delete(usuario);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			session.delete(usuario);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
-		
+
 	}
 
 	@Override
@@ -86,38 +86,58 @@ public class UsuarioDAOImplementation implements UsuarioDAO{
 		Session session = SessionFactoryService.get().openSession();
 		Usuario usuario = null;
 		try {
-        	session.beginTransaction();
-        	usuario = (Usuario) session.createQuery("select u from Usuario u where u.email = :email and u.contraseña = :password")
-        		.setParameter("email", email)
-	        	.setParameter("password", password)
-	        	.getSingleResult();
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			usuario = (Usuario) session.createQuery("select u from Usuario u where u.email = :email and u.contraseña = :password")
+					.setParameter("email", email)
+					.setParameter("password", password)
+					.getSingleResult();
+			session.getTransaction().commit();
 		} catch (Exception e) {
-        				// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 		return usuario;
 	}
+
 	@Override
 	public List<Usuario> readAllUsuario() {
-		List<Usuario> professors = new ArrayList<>();
+		List<Usuario> usuarios = new ArrayList<>();
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	professors.addAll(
-        			session.createQuery("from Usuario").list()
-        	);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			usuarios.addAll(
+					session.createQuery("from Usuario").list()
+					);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
-		return professors;
+		return usuarios;
 	}
-	
-	
-	
+
+
+	@Override
+	public List<Usuario> readAllUsuario(int role) {
+		List<Usuario> usuarios = new ArrayList<>();
+		Session session = SessionFactoryService.get().openSession();
+		try {
+			session.beginTransaction();
+			usuarios.addAll(
+					session.createQuery("select u from Usuario u where u.rol = :role")
+					.setParameter("role", role)
+					.list()
+					);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return usuarios;
+	}
+
 }
 

@@ -17,20 +17,20 @@ public class ProyectoDAOImplementation implements ProyectoDAO{
 		}
 		return instance;
 	}
-	
+
 	@Override
 	public void createProyecto(Proyecto proyecto) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-		     session.beginTransaction();
-		     session.save(proyecto);
-		     session.getTransaction().commit();
+			session.beginTransaction();
+			session.save(proyecto);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		     session.close();
+			session.close();
 		}
-		
+
 	}
 
 	@Override
@@ -38,13 +38,13 @@ public class ProyectoDAOImplementation implements ProyectoDAO{
 		Proyecto proyecto = null;
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	proyecto = session.get(Proyecto.class, id);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			proyecto = session.get(Proyecto.class, id);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 		return proyecto;
 	}
@@ -53,28 +53,28 @@ public class ProyectoDAOImplementation implements ProyectoDAO{
 	public void updateProyecto(Proyecto proyecto) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	session.saveOrUpdate(proyecto);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			session.saveOrUpdate(proyecto);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
-		
+
 	}
 
 	@Override
 	public void deleteProyecto(Proyecto proyecto) {
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	session.delete(proyecto);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			session.delete(proyecto);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 	}
 
@@ -83,15 +83,15 @@ public class ProyectoDAOImplementation implements ProyectoDAO{
 		List<Proyecto> proyectos = new ArrayList<>();
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	proyectos.addAll(
-        			session.createQuery("from Proyecto").list()
-        	);
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			proyectos.addAll(
+					session.createQuery("from Proyecto").list()
+					);
+			session.getTransaction().commit();
 		} catch (Exception e) {
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 		return proyectos;
 	}
@@ -100,16 +100,15 @@ public class ProyectoDAOImplementation implements ProyectoDAO{
 		Proyecto proyecto = null;
 		Session session = SessionFactoryService.get().openSession();
 		try {
-        	session.beginTransaction();
-        	proyecto = (Proyecto) session.createQuery("select p from Proyecto p where p.project_code= :code")
-        			.setParameter("code", project_code)
-        			.getSingleResult();
-        	session.getTransaction().commit();
+			session.beginTransaction();
+			proyecto = (Proyecto) session.createQuery("select p from Proyecto p where p.project_code= :code")
+					.setParameter("code", project_code)
+					.getSingleResult();
+			session.getTransaction().commit();
 		} catch (Exception e) {
-			System.out.println(e);
-		            	// manejar excepciones
+			e.printStackTrace();
 		} finally {
-		    session.close();
+			session.close();
 		}
 		return proyecto;
 	}
