@@ -350,6 +350,12 @@
 					<button class="btn btn-primary btn-block disabled" type="submit">Add task</button>
 				</div>
 			  </form>
+			  
+			    <!-- version para importar tareas de excels -->
+			  <form id="select-form" action="ImportTareasServlet" method="post" role="form" enctype="multipart/form-data">
+			  	<input type="file" name ="file"/>
+				<button type="submit">Importar Excel</button>
+			  </form>
 		    </div>
 		  </div>
 		</div>
