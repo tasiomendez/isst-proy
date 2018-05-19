@@ -1,6 +1,5 @@
 package es.upm.dit.isst.proy.dao.model;
 
-import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,7 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,6 +22,8 @@ public class Proyecto {
 	private String fechaFinal;
 	private boolean acabado; 
 	private int project_code;
+	@Lob
+	private byte[] document;
 	
 	@OneToMany(mappedBy="proyecto", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER) 
 	private Set<Tarea> tareas;

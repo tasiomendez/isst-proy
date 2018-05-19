@@ -116,25 +116,7 @@ public class UsuarioDAOImplementation implements UsuarioDAO{
 		}
 		return professors;
 	}
-	@Override
-	public List<Proyecto> readAllProyectoFromUser(String email) {
-		List<Proyecto> proyectos = new ArrayList<>();
-		Session session = SessionFactoryService.get().openSession();
-		try {
-        	session.beginTransaction();
-        	proyectos.addAll(
-        			session.createQuery("from Proyecto as p INNER JOIN Contrato as c inner join Usuario as u where p.id=c.proyecto_id and c.usuario_email=u.email and u.email : email")
-        			.setParameter("email",email)
-        			.list()
-        	);
-        	session.getTransaction().commit();
-		} catch (Exception e) {
-        				// manejar excepciones
-		} finally {
-		    session.close();
-		}
-		return proyectos;
-	}
+	
 	
 	
 }
