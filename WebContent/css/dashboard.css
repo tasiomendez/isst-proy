@@ -358,15 +358,19 @@ body .navbar {
 
 
 /** Analysis **/
+#analysis.main {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0;
+}
+
 #workers-list {
 	height: 100%;
 	background-color: white;
-	position: absolute;
-	right: 0;
-	top: 0;
-	margin-top: 50px;
-	padding: 0;
 	border-left: 4px solid #ddd;
+	padding: 0;
+	min-width: 25%;
 }
 
 #workers-list .title {
@@ -412,6 +416,7 @@ body .navbar {
 	padding: 0px 15px;
 	border-radius: 15px;
 	margin-top: 15px;
+	width: 100%
 }
 
 #workers-list ul > a li span.email {
@@ -424,6 +429,119 @@ body .navbar {
 	background-color: #eee;
 	box-shadow: inset -10px -15px 10px -15px #ccc;
 }
+
+#worker-stats {
+	height: calc(100% - 50px);
+	background-color: white;
+	width: 100%;
+}
+
+#worker-stats .row {
+	height: 50%;
+}
+
+#worker-stats .row > .col-sm-6,
+#worker-stats .row > .col-sm-4,
+#worker-stats .row > .col-sm-8 {
+	height: 100%;
+}
+
+#worker-stats .info {
+	padding: 25px 50px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: center;
+}
+
+#worker-stats .info img {
+	width: 80%;
+	margin-bottom: 10px;
+	margin-left: 10%;
+}
+
+#worker-stats .info .name {
+	text-align: center;
+	font-size: 2em;
+	font-weight: bold;	
+}
+
+#worker-stats .info .email {
+	text-align: center;
+	font-style: italic;
+	font-size: 1em;
+}
+
+#worker-stats.first-view {
+	text-align: center;
+	color: #504949;
+	font-weight: bold;
+	font-style: italic;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#worker-stats.first-view p {
+	text-align: center;
+}
+
+#worker-stats ul.projects {
+	list-style: none;
+	height: 100%;
+	overflow: auto;
+	border-left: 1px solid #ddd;
+	padding-left: 0;
+	margin: 0;
+}
+
+#worker-stats ul.projects > li {
+	height: 60px;
+	padding: 10px 15px;	
+	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+}
+
+#worker-stats ul.projects > li > div {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#worker-stats ul.projects > li > div .title-project {
+	font-size: large;
+	font-weight: bold;
+	color: #504949;
+}
+
+#worker-stats ul.projects > li > div .dates-project {
+	font-size: small;
+	font-style: italic;
+}
+
+
+#worker-stats .row:first-child {
+	border-bottom: 2px solid #ddd;
+}
+
+#worker-stats .row .col-sm-8 {
+	display: flex;
+	flex-direction: column;
+}
+
+#worker-stats .row .col-sm-8 h4 {
+	font-style: italic;
+	font-weight: bolder;
+	text-align: center;
+	border-left: 1px solid #ddd;
+	margin: 0;
+	padding: 15px 0;
+}
+
+
+
+
 
 
 

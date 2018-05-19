@@ -1,3 +1,25 @@
+<div id="worker-stats" class="worker-stats" style="display: none;">
+	<div class="row">
+		<div class="col-sm-4 info">
+			<img src="${pageContext.request.contextPath}/img/user.png" alt="profile" />
+			<div class="name"></div>
+			<div class="email"></div>
+		</div>
+		<div class="col-sm-8">
+			<h4>Lista de proyectos</h4>
+			<ul class="projects"></ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6"></div>
+		<div class="col-sm-6"></div>
+	</div>
+</div>
+
+<div id="worker-stats" class="first-view">
+	<p>Select a user</p>
+</div>
+
 <div id="workers-list" class="col-sm-3 pull-right">
 	<div class="col-sm-12 text-center title">
 		<h4 style="font-weight: bolder;">Trabajadores</h4>
@@ -38,32 +60,77 @@
 	
 	$('.workers-list ul a').on('click', function() {
 		$('.workers-list ul a').removeClass('active');
+		$(this).addClass('active');
+		$('#worker-stats.worker-stats').show();
+		$('#worker-stats.first-view').hide();
 		$.ajax({
-		    url: 'SearchProjectServlet',
+		    url: 'AnalysisServlet',
 		    data: {
-		    	project_code: code,
+		    	email: $(this).attr('data-email')
 		    },
 		    method: 'POST',
+		    beforeSend: function() {
+		    	$('#worker-stats ul.projects').empty();
+		    },
 		    success: function(response) {
-				$(this).addClass('active');		
-		        var res = response.split('\\&\\');
-		        $('#search-project .error-response').empty();
-		        $('#search-project .success-response .title-response').text(res[0]);
-		        $('#search-project .success-response .description-response').text(res[1]);
-		        var form = $('<form>').attr('action', 'JoinProjectServlet').attr('method', 'post').attr('role', 'form');
-		        $('<input>').attr('type', 'hidden').attr('value', code).attr('name', 'project_code').appendTo(form);
-		        if (res[2] == "true")
-		        	$('<button>').addClass('btn btn-primary btn-block disabled').css('margin-top', '15px')
-   			 	 				 .attr('disabled', 'disabled').text('Already joined').appendTo(form);
-		        else
-		        	$('<button>').addClass('btn btn-primary btn-block').css('margin-top', '15px')
-		        			 	 .attr('type', 'submit').text('Join').appendTo(form);
-		        form.appendTo($('#search-project .success-response .description-response'))
+				console.log(response);
+				var array = response.split('//&//');
+				var info = array[0].split('\\&\\');
+				$('.worker-stats .info .name').text(info[0]);
+				$('.worker-stats .info .email').text(info[1]);
+				
+				var projects = array[1].split('\\&\\');
+				for (i in projects) {
+					var project_info = projects[i].split(',');
+					var title = $('<span>').addClass('title-project').text(project_info[0] + " (" + project_info[3] + ")");
+					var dates = $('<span>').addClass('dates-project').text("FROM " + project_info[1] + " TO " + project_info[2]);
+					var item = $('<li>').append($('<div>').append(title).append(dates));
+					$('#worker-stats ul.projects').append(item);
+				}
 		    },
 		    error: function(error) {
-		        console.eror(error);
-		        background-color: #f5c5c5;
+		        console.error(error);
+		        $(this).css('background-color', '#f5c5c5');
 		    }
 		});
 	})
+</script>
+
+<script text="text/javascript">
+	function getRandomColor(seed) {
+		var letters = '0123456789ABCDEF';
+		var color = '#';
+		for (var i = 0; i < 6; i++) {
+			color += letters[Math.floor(randomSeedSin(seed + i)() * 16)];
+		}
+		return color;
+	}
+	
+	function randomSeedSin(seed) { 
+	    // https://stackoverflow.com/a/19303725/1791917
+	    return function(){
+	      const x = Math.sin(seed++) * 10000
+	      return x - Math.floor(x);
+	   }
+	}
+	
+	function lightColor(hex, lum) {
+
+		// validate hex string
+		hex = String(hex).replace(/[^0-9a-f]/gi, '');
+		if (hex.length < 6) {
+			hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+		}
+		lum = lum || 0;
+
+		// convert to decimal and change luminosity
+		var rgb = "#", c, i;
+		for (i = 0; i < 3; i++) {
+			c = parseInt(hex.substr(i*2,2), 16);
+			c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+			rgb += ("00"+c).substr(c.length);
+		}
+
+		return rgb;
+	}
 </script>
