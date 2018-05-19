@@ -357,6 +357,74 @@ body .navbar {
 }
 
 
+/** Analysis **/
+#workers-list {
+	height: 100%;
+	background-color: white;
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin-top: 50px;
+	padding: 0;
+	border-left: 4px solid #ddd;
+}
+
+#workers-list .title {
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #ddd;
+}
+
+#workers-list .workers-list {
+	padding: 0;
+	height: calc(100% - 120px);
+	overflow: auto;
+}
+
+.workers-list > ul {
+	list-style: none;
+	padding: 0;
+	width: 100%;
+}
+
+.workers-list > ul li {
+	height: 60px;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 20px;
+	width: 100%;
+	justify-content: center;
+	border-bottom: 1px solid #ddd;
+}
+
+.workers-list > ul > a {
+	text-decoration: none !important;
+	color: black;
+	cursor: pointer;
+}
+
+.workers-list > ul > a:hover > li {
+	background-color: #efefef;
+}
+
+#workers-list .title input {
+	border: 1px solid #ccc;
+	padding: 0px 15px;
+	border-radius: 15px;
+	margin-top: 15px;
+}
+
+#workers-list ul > a li span.email {
+	font-size: small;
+	text-align: left;
+	font-style: italic;
+}
+
+#workers-list ul > a.active li {
+	background-color: #eee;
+	box-shadow: inset -10px -15px 10px -15px #ccc;
+}
+
 
 
 

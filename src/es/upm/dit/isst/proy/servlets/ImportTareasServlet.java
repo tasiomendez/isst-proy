@@ -3,8 +3,6 @@ package es.upm.dit.isst.proy.servlets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +21,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import es.upm.dit.isst.proy.dao.ProyectoDAOImplementation;
 import es.upm.dit.isst.proy.dao.TareaDAOImplementation;
-import es.upm.dit.isst.proy.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.proy.dao.model.Contrato;
 import es.upm.dit.isst.proy.dao.model.Proyecto;
 import es.upm.dit.isst.proy.dao.model.Tarea;
@@ -37,7 +34,6 @@ public class ImportTareasServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		String project_code= (String) req.getSession().getAttribute("project_code");
-		System.out.println("Project_code:"+project_code);
 		Part filePart = req.getPart("file");
 		InputStream fileContent = filePart.getInputStream();
 		
@@ -64,7 +60,7 @@ public class ImportTareasServlet extends HttpServlet {
         	ArrayList<Contrato>contratos=new ArrayList<Contrato>();
         	contratos.addAll(proyecto.getContratos());
 
-	        for(int i=1;i<=sheet.getLastRowNum();i++) {
+	        for(int i = 1; i <= sheet.getLastRowNum(); i++) {
 	        	Row row=sheet.getRow(i);
 	        	titulo=dataFormatter.formatCellValue(row.getCell(0));
 	        	descripcion=dataFormatter.formatCellValue(row.getCell(1));
@@ -75,21 +71,18 @@ public class ImportTareasServlet extends HttpServlet {
 	        			fechaEntrega.isEmpty()||horas.isEmpty()||trabajador_email.isEmpty()) {
 	        		error_tareas_vacias.add(titulo);
 	        		break;
-	        		
 	        	}
 	        	Usuario trabajador=null;
 	        	for(int j=0;j<contratos.size();j++) {
 	        		Contrato contrato=contratos.get(j);
 	        		Usuario usr=contrato.getUsuario();
 	        		if(usr.getEmail().equals(trabajador_email)) {
-
-	        			trabajador=usr;
+	        			trabajador = usr;
 	        			break;
 	        		}
 	        	}
-	        	if(trabajador==null){
+	        	if(trabajador == null){
 	        		error_tareas_trabajador.add(titulo);
-   
         			break;
 	        	}
 
@@ -103,9 +96,8 @@ public class ImportTareasServlet extends HttpServlet {
         		tarea.setWorked_hours(0);        		
         		tarea.setProyecto(proyecto);
         		TareaDAOImplementation.getInstance().createTarea(tarea);
-	        	
-
 	        }
+	        
 	        req.getSession().setAttribute("error_tareas_trabajador", error_tareas_trabajador);
 	        req.getSession().setAttribute("error_tareas_vacias", error_tareas_vacias);
 	        
@@ -115,15 +107,12 @@ public class ImportTareasServlet extends HttpServlet {
 			tareas.addAll(proyecto.getTareas());
 			req.getSession().setAttribute("tareas_list", tareas);
 	        resp.sendRedirect(req.getContextPath()+"/kanban");
+	        
 		} catch (EncryptedDocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-
 		
 	}
 }

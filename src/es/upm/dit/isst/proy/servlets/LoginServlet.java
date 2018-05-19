@@ -20,7 +20,7 @@ import es.upm.dit.isst.proy.util.cryptographicHash;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (req.getSession().getAttribute("email") != null) {
@@ -33,10 +33,9 @@ public class LoginServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email= req.getParameter("email");
 		String password = cryptographicHash.getMD5(req.getParameter("password"));
-		System.out.println("email: "+email);
-		System.out.println("pwd: "+password);
+		System.out.println("pass:" + password);
 		Usuario usuario = UsuarioDAOImplementation.getInstance().loginUsuario(email, password);
-		
+
 		if (usuario == null) {
 			//Redireccionamos de nuevo a login
 			if (UsuarioDAOImplementation.getInstance().readUsuario(email) != null)
@@ -46,7 +45,7 @@ public class LoginServlet extends HttpServlet{
 			resp.sendRedirect(req.getContextPath());
 
 		} else {
-			
+
 			req.getSession().setAttribute("role",usuario.getRol());
 			req.getSession().setAttribute("email",usuario.getEmail());
 
@@ -58,14 +57,14 @@ public class LoginServlet extends HttpServlet{
 			}
 			req.getSession().setAttribute("project_list",proyecto );
 			req.getSession().setAttribute("name",usuario.getNombre());
-			ArrayList<Usuario> list_trabajador = (ArrayList<Usuario>) UsuarioDAOImplementation.getInstance().readAllUsuario();
+			ArrayList<Usuario> list_trabajador = (ArrayList<Usuario>) UsuarioDAOImplementation.getInstance().readAllUsuario(3);
 			req.getSession().setAttribute("trabajador_list", list_trabajador);
 			req.getSession().setAttribute("calendar_id", usuario.getIdCalendar());
-			
+
 			loadEvents(req, resp, usuario);
 		}
 	}
-	
+
 	private void loadEvents(HttpServletRequest req, HttpServletResponse resp, Usuario usuario) throws ServletException, IOException {
 		if (usuario.getIdCalendar() != null) {
 			try {
