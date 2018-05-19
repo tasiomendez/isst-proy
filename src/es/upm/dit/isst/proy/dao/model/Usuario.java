@@ -50,8 +50,8 @@ public class Usuario {
 		return contraseña;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContraseña(String i) {
+		this.contraseña = i;
 	}
 
 	public int getRol() {

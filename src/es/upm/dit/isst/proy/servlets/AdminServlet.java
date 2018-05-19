@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import es.upm.dit.isst.proy.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.proy.dao.model.Usuario;
+import es.upm.dit.isst.proy.util.cryptographicHash;
 
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
@@ -28,7 +29,7 @@ public class AdminServlet extends HttpServlet {
 			Usuario usuario =new Usuario();
 			usuario.setEmail(email);
 			usuario.setNombre(name);
-			usuario.setContraseña(password);
+			usuario.setContraseña(cryptographicHash.getMD5(password));
 			usuario.setRol(Integer.parseInt(role));
 			
 			UsuarioDAOImplementation.getInstance().createUsuario(usuario);

@@ -15,6 +15,7 @@ import es.upm.dit.isst.proy.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.proy.dao.model.Contrato;
 import es.upm.dit.isst.proy.dao.model.Proyecto;
 import es.upm.dit.isst.proy.dao.model.Usuario;
+import es.upm.dit.isst.proy.util.cryptographicHash;
 
 @WebServlet("/SignUpServlet")
 public class SignUpServlet extends HttpServlet{
@@ -41,7 +42,7 @@ public class SignUpServlet extends HttpServlet{
 				Usuario usuario= new Usuario();
 				usuario.setNombre(name);
 				usuario.setEmail(email);
-				usuario.setContraseña(password);
+				usuario.setContraseña(cryptographicHash.getMD5(password));
 				usuario.setRol(3); //Tiene rol de trabajador
 				
 				//Creo el usuario

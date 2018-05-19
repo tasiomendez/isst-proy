@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import es.upm.dit.isst.proy.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.proy.dao.model.Contrato;
 import es.upm.dit.isst.proy.dao.model.Proyecto;
 import es.upm.dit.isst.proy.dao.model.Usuario;
+import es.upm.dit.isst.proy.util.cryptographicHash;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
@@ -29,11 +32,11 @@ public class LoginServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email= req.getParameter("email");
-		String password = req.getParameter("password");
+		String password = cryptographicHash.getMD5(req.getParameter("password"));
 		System.out.println("email: "+email);
 		System.out.println("pwd: "+password);
 		Usuario usuario = UsuarioDAOImplementation.getInstance().loginUsuario(email, password);
-
+		
 		if (usuario == null) {
 			//Redireccionamos de nuevo a login
 			if (UsuarioDAOImplementation.getInstance().readUsuario(email) != null)
@@ -43,6 +46,7 @@ public class LoginServlet extends HttpServlet{
 			resp.sendRedirect(req.getContextPath());
 
 		} else {
+			
 			req.getSession().setAttribute("role",usuario.getRol());
 			req.getSession().setAttribute("email",usuario.getEmail());
 
@@ -57,7 +61,7 @@ public class LoginServlet extends HttpServlet{
 			ArrayList<Usuario> list_trabajador = (ArrayList<Usuario>) UsuarioDAOImplementation.getInstance().readAllUsuario();
 			req.getSession().setAttribute("trabajador_list", list_trabajador);
 			req.getSession().setAttribute("calendar_id", usuario.getIdCalendar());
-
+			
 			loadEvents(req, resp, usuario);
 		}
 	}
