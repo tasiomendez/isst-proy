@@ -16,9 +16,6 @@ public class Usuario {
 	private String nombre;
 	private String contraseña;
 	private int rol;
-	private int edad;
-	private String disponibilidad;
-	private String departamento;
 	private String idCalendar;
 
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.EAGER)
@@ -60,30 +57,6 @@ public class Usuario {
 
 	public void setRol(int rol) {
 		this.rol = rol;
-	}
-
-	public int getEdad() {
-		return edad;
-	}
-
-	public void setEdad(int edad) {
-		this.edad = edad;
-	}
-
-	public String getDisponibilidad() {
-		return disponibilidad;
-	}
-
-	public void setDisponibilidad(String disponibilidad) {
-		this.disponibilidad = disponibilidad;
-	}
-
-	public String getDepartamento() {
-		return departamento;
-	}
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
 	}
 
 	public Set<Tarea> getTareas() {

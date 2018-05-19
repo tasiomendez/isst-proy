@@ -18,10 +18,9 @@ import es.upm.dit.isst.proy.dao.model.Usuario;
 @WebServlet("/AnalysisServlet")
 public class AnalysisServlet extends HttpServlet{
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		//String trabajador_email=req.getParameter("email");
-		String trabajador_email="alber";
+		String trabajador_email=req.getParameter("email");
 		Usuario trabajador= UsuarioDAOImplementation.getInstance().readUsuario(trabajador_email);
 		resp.setContentType("text/plain");
 		String response="";
@@ -44,10 +43,10 @@ public class AnalysisServlet extends HttpServlet{
 				}
 			}
 			if(i==contratos.size()-1) {
-				proyectos+=proyecto.getTitulo();
+				proyectos+=proyecto.getTitulo()+','+proyecto.getFechaInicio()+','+proyecto.getFechaFinal()+','+proyecto.getProject_code();
 				proyectos_tareas+=count_tareas;
 			}else {
-				proyectos+=proyecto.getTitulo()+"\\&\\";
+				proyectos+=proyecto.getTitulo()+','+proyecto.getFechaInicio()+','+proyecto.getFechaFinal()+','+proyecto.getProject_code()+"\\&\\";
 				proyectos_tareas+=count_tareas+"\\&\\";
 			}
 			count_tareas=0;	
