@@ -425,7 +425,7 @@
 					</form>					
 				</div>
 				<div class="modal-footer">
-					<a href="${pageContext.request.contextPath}/KanbanServlet?project_code=${project_code}"><button class="btn btn-primary btn-block" type="button">Import tasks</button></a>
+					<button class="btn btn-primary btn-block" type="submit" data-action="send-dropzone">Import tasks</button>
 				</div>
 			  
 		    </div>
@@ -438,16 +438,21 @@
 			});
 			
 			Dropzone.options.dropzone = {
-			  	accept: function(file, done) {
-			    	console.log("uploaded");
-			    	done();
-			  	},
 			  	init: function() {
 				    this.on("addedfile", function() {
 			      		if (this.files[1] != null){
-			        	this.removeFile(this.files[0]);
-			      	}
-			    });
+			        		this.removeFile(this.files[0]);
+			      		}
+			    	});
+				    myDropzone = this;
+				    $('.btn[data-action="send-dropzone"]').on("click", function() {
+			        	myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+			      	});
+				},
+				success: function() {
+					location.reload(); 
+				},
+				autoProcessQueue: false
 			}
 		</script>
 
