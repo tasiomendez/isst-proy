@@ -210,12 +210,12 @@ function updateDB(action,card, success, error){
 		},
 		method:'POST',
 		error: function(error) {
-			console.log(error);
+			console.error(error);
 			if (error) { error(); }
 			else { $('#error-task').css('z-index', '2000').modal('show'); }
 		},
 		success: function(response) {
-			console.error(response)
+			console.log(response)
 			if (success) { success(); }
 		},
 	});

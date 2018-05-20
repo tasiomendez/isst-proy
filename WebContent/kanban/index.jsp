@@ -353,7 +353,7 @@
 			  
 			    <!-- version para importar tareas de excels -->
 			  <form id="select-form" action="ImportTareasServlet" method="post" role="form" enctype="multipart/form-data">
-			  	<input type="file" name ="file"/>
+			  	<input id="file" type="file" name ="file"/>
 				<button type="submit">Importar Excel</button>
 			  </form>
 		    </div>
@@ -367,6 +367,7 @@
 		        $('#add-task select').val('');
 		        $('#add-task #planned_hours').val('');
 			});
+		
 		</script>
 
 	</c:if>

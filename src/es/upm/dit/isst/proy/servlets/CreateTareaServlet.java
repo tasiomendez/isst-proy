@@ -48,8 +48,21 @@ public class CreateTareaServlet extends HttpServlet{
 			CalendarAPI.getInstance().insertEvents(trabajador.getEmail(),trabajador.getIdCalendar(), title, description, fecha_entrega);
 		
 		Proyecto proyecto_nuevo = ProyectoDAOImplementation.getInstance().readProyectoFromProjectCode(Integer.parseInt(project_code));
-		ArrayList<Tarea> tareas = new ArrayList<Tarea>();
+		
+		//Modificamos el porcentaje de proyecto hecho
+		ArrayList<Tarea> tareas=new ArrayList<Tarea>();
 		tareas.addAll(proyecto_nuevo.getTareas());
+		double count_done=0;
+		for (Tarea t : tareas) {
+			if(t.getEstado().equals("done"))
+				count_done++;
+		}
+		System.out.println(count_done);
+		System.out.println(tareas.size());
+		double percentage=count_done/(double)tareas.size();
+		System.out.println(percentage);
+		proyecto_nuevo.setPercentage(percentage);
+		ProyectoDAOImplementation.getInstance().updateProyecto(proyecto_nuevo);
 		req.getSession().setAttribute("tareas_list", tareas);
 		
 		resp.sendRedirect(req.getContextPath() + "/kanban");

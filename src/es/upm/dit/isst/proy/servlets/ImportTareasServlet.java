@@ -98,14 +98,26 @@ public class ImportTareasServlet extends HttpServlet {
         		TareaDAOImplementation.getInstance().createTarea(tarea);
 	        }
 	        
+	        
 	        req.getSession().setAttribute("error_tareas_trabajador", error_tareas_trabajador);
 	        req.getSession().setAttribute("error_tareas_vacias", error_tareas_vacias);
 	        
 	        proyecto=ProyectoDAOImplementation.getInstance().readProyectoFromProjectCode(Integer.parseInt(project_code));
         	
-	        ArrayList<Tarea> tareas = new ArrayList<Tarea>();
+	        //Modificamos el porcentaje de proyecto hecho
+			ArrayList<Tarea> tareas=new ArrayList<Tarea>();
 			tareas.addAll(proyecto.getTareas());
-			req.getSession().setAttribute("tareas_list", tareas);
+			double count_done=0;
+			for (Tarea t : tareas) {
+				if(t.getEstado().equals("done"))
+					count_done++;
+			}
+			System.out.println(count_done);
+			System.out.println(tareas.size());
+			double percentage=count_done/(double)tareas.size();
+			System.out.println(percentage);
+			proyecto.setPercentage(percentage);
+			ProyectoDAOImplementation.getInstance().updateProyecto(proyecto);			req.getSession().setAttribute("tareas_list", tareas);
 	        resp.sendRedirect(req.getContextPath()+"/kanban");
 	        
 		} catch (EncryptedDocumentException e) {

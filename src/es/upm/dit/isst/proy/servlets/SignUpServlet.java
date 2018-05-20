@@ -56,7 +56,7 @@ public class SignUpServlet extends HttpServlet{
 				req.getSession().setAttribute("role",usuario.getRol());
 				req.getSession().setAttribute("email", usuario.getEmail());
 				
-				Usuario user = UsuarioDAOImplementation.getInstance().loginUsuario(email, password);
+				Usuario user = UsuarioDAOImplementation.getInstance().loginUsuario(email,cryptographicHash.getMD5(password));
 				ArrayList<Contrato> contratos = new ArrayList<Contrato>();
 				contratos.addAll(user.getContratos());
 				Proyecto[] proyectos = new Proyecto[contratos.size()];
