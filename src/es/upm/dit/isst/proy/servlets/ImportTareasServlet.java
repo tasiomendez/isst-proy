@@ -35,6 +35,7 @@ public class ImportTareasServlet extends HttpServlet {
 		
 		String project_code= (String) req.getSession().getAttribute("project_code");
 		Part filePart = req.getPart("file");
+		System.out.print(filePart);
 		InputStream fileContent = filePart.getInputStream();
 		
 		Workbook workbook;
@@ -115,7 +116,8 @@ public class ImportTareasServlet extends HttpServlet {
 			double percentage=count_done/(double)tareas.size();
 			proyecto.setPercentage(percentage);
 			ProyectoDAOImplementation.getInstance().updateProyecto(proyecto);			req.getSession().setAttribute("tareas_list", tareas);
-	        resp.sendRedirect(req.getContextPath()+"/kanban");
+	        //resp.sendRedirect(req.getContextPath()+"/kanban");
+			resp.getWriter().write("Success");
 	        
 		} catch (EncryptedDocumentException e) {
 			e.printStackTrace();
