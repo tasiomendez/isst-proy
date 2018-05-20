@@ -421,11 +421,11 @@
 		      </div>
 		      
 			  <div class="modal-body">
-			  		<form id="import-tasks-form" class="dropzone" action="ImportTareasServlet" method="post" role="form" data-toggle="validator" enctype="multipart/form-data">
+			  		<form id="dropzone" class="dropzone" action="ImportTareasServlet" method="post" role="form" data-toggle="validator" enctype="multipart/form-data">
 					</form>					
 				</div>
 				<div class="modal-footer">
-					<a href="${pageContext.request.contextPath}/KanbanServlet?project_code=${project_code}"><button class="btn btn-primary btn-block" type="button">Import tasks</button></a>
+					<button class="btn btn-primary btn-block" type="submit" data-action="send-dropzone">Import tasks</button>
 				</div>
 			  
 		    </div>
@@ -434,8 +434,26 @@
 		
 		<script type="text/javascript">
 			$('#import-tasks').on('hidden.bs.modal', function (e) {
-				$('#import-tasks #file').val('');
+				$('#dropzone #file').val('');
 			});
+			
+			Dropzone.options.dropzone = {
+			  	init: function() {
+				    this.on("addedfile", function() {
+			      		if (this.files[1] != null){
+			        		this.removeFile(this.files[0]);
+			      		}
+			    	});
+				    myDropzone = this;
+				    $('.btn[data-action="send-dropzone"]').on("click", function() {
+			        	myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+			      	});
+				},
+				success: function() {
+					location.reload(); 
+				},
+				autoProcessQueue: false
+			}
 		</script>
 
 	</c:if>

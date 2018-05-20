@@ -293,6 +293,10 @@ input[type=text] {
 	background-color: #dddddd45;
 	border: 1px solid #504949;
 	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: center;
 }
 
 .dz-default.dz-message {
@@ -307,8 +311,6 @@ input[type=text] {
 .dropzone:hover {
 	background-color: #eeeeee;
 }
-
-
 
 
 

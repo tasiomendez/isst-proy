@@ -81,9 +81,6 @@
 						<div class="project-actions">
 							<div class="btn-group" role="group" aria-label="...">
 								<c:if test="${role == 0 || role == 1}">
-									<button type="button" class="btn btn-default disabled">Generar informe</button>
-								</c:if>
-								<c:if test="${role == 0 || role == 1}">
 									<button type="button" class="btn btn-default disabled hidden-sm">Ver estadísticas</button>
 								</c:if>
 								<button type="button" class="btn btn-default disabled">Entregables</button>

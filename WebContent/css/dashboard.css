@@ -549,11 +549,131 @@ body .navbar {
 	font-style: italic;
 }
 
+/** Informs **/
+.row.informs-wrapper {
+	height: 25%;
+}
 
+.informs-wrapper .number-projects,
+.informs-wrapper .number-informs {
+	height: 100%;
+	padding: 20px 50px;
+	display: flex;
+	flex-direction: row;
+}
 
+.informs-wrapper .number {
+	height: 100%;
+	font-size: 3em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: white;
+	padding: 0 40px;
+}
 
+.informs-wrapper .text {
+	height: 100%;
+	width: 80%;
+	font-size: 3em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: white;
+	align-content: center;
+	text-align: center;
+}
 
+.number-projects > .number {
+	background-color: rgb(177, 60, 46);
+}
 
+.number-projects > .text {
+	background-color: #dd4b39;
+}
+
+.number-informs > .number {
+	background-color: rgb(195, 125, 14);
+}
+
+.number-informs > .text {
+	background-color: rgb(243, 156, 18);
+}
+
+.informs-list-wrapper {
+	height: 75%;
+	overflow: auto;
+	padding: 40px 50px 0;
+}
+
+.informs-list-wrapper > ul {
+	padding: 0;
+	height: 100%;	
+	border-top: 1px solid #999;
+	margin: 0;
+}
+
+.informs-list-wrapper > ul li.header {
+	font-weight: bolder;
+	background-color: white;	
+}
+
+.informs-list-wrapper > ul li:nth-child(2n) {
+	background-color: #ddd !important;
+}
+
+.informs-list-wrapper > ul li {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-content: center;
+	height: 50px;
+	padding: 5px 50px;
+	font-size: 15px;
+	border-bottom: 1px solid #aaa;
+}
+
+.informs-list-wrapper > ul li div {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.informs-list-wrapper > ul li div.title {
+	flex:1;
+}
+
+.informs-list-wrapper > ul li div.download {
+	flex:1;
+}
+
+.informs-list-wrapper > ul li div.download {
+	cursor: pointer;
+	font-size: 1.5em !important;
+	flex-direction: row;
+	align-content: center;
+	justify-content: flex-end;
+}
+.informs-list-wrapper > ul li div.download span {
+	margin-left: 10px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.informs-list-wrapper > ul li div.download button:hover span {
+	color: #7a7070;
+}
+
+.informs-list-wrapper > ul li div.download button {
+	background-color: transparent;
+	border: none;
+}
+
+.informs-list-wrapper > ul > div.items-list {
+	height: calc(100% - 50px);
+	overflow: auto;
+}
 
 
 

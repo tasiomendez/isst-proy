@@ -29,7 +29,7 @@
 
 <c:if test="${role == 0 || role == 1}">
 <div id="informs" class="item">
-	<span class="glyphicon glyphicon-info-sign"></span>
+	<span class="glyphicon glyphicon-duplicate"></span>
 	<span class="menu-item">Informes</span>
 </div> 
 </c:if>
