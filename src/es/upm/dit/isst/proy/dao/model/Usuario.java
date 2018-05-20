@@ -63,7 +63,7 @@ public class Usuario {
 		return tareas;
 	}
 
-	public void setJobs(Set<Tarea> tareas) {
+	public void setTareas(Set<Tarea> tareas) {
 		this.tareas = tareas;
 	}
 
