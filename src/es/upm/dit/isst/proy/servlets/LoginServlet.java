@@ -59,6 +59,7 @@ public class LoginServlet extends HttpServlet{
 		}
 		req.getSession().setAttribute("project_list",proyecto );
 		req.getSession().setAttribute("name",usuario.getNombre());
+		req.getSession().setAttribute("user", usuario);
 		ArrayList<Usuario> list_trabajador = (ArrayList<Usuario>) UsuarioDAOImplementation.getInstance().readAllUsuario(3);
 		req.getSession().setAttribute("trabajador_list", list_trabajador);
 		req.getSession().setAttribute("calendar_id", usuario.getIdCalendar());
