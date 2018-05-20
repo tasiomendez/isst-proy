@@ -45,6 +45,39 @@
 	%>
 </c:if>
 
+<!-- Modal de error al importar tareas -->
+<c:if test="${not empty error_tareas_trabajador || not empty error_tareas_vacias}">
+	<div class="modal fade in" id="error-import" tabindex="-1" role="dialog" aria-labelledby="error-import" style="display: block;">
+		 <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content" style="background-color: transparent; border:none;" >
+		      
+				<div class="alert alert-danger" role="alert" style="margin-bottom:0px ">
+					<c:if test="${not empty error_tareas_trabajador}">
+						<b>
+							Error: no se han podido importar las siguientes tareas ya que el email introducido no corresponde a ningun trabajador de este proyecto:
+						</b> 
+						<c:forEach items="${error_tareas_trabajador}" var="tarea">
+							<li>${tarea }</li>
+						</c:forEach>
+					</c:if>
+					<c:if test="${not empty error_tareas_vacias}">
+						<b>
+							Error: no se han podido importar las siguientes tareas debido a que alguno de los campos no estan rellenados:
+						</b>
+						<c:forEach items="${error_tareas_vacias}" var="tarea">
+							<li>${tarea }</li>
+						</c:forEach>
+					</c:if>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%
+		session.removeAttribute("error_tareas_trabajador");
+		session.removeAttribute("error_tareas_vacias");
+	%>
+ </c:if>
+
 <body>
 
 	<div class="app-wrapper">

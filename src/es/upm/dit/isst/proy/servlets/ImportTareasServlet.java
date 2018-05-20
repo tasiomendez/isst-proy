@@ -67,10 +67,11 @@ public class ImportTareasServlet extends HttpServlet {
 	        	fechaEntrega=dataFormatter.formatCellValue(row.getCell(2));
 	        	horas=dataFormatter.formatCellValue(row.getCell(3));
 	        	trabajador_email=dataFormatter.formatCellValue(row.getCell(4));
+	        	System.out.println(titulo);
 	        	if(titulo.isEmpty()||descripcion.isEmpty()||
 	        			fechaEntrega.isEmpty()||horas.isEmpty()||trabajador_email.isEmpty()) {
 	        		error_tareas_vacias.add(titulo);
-	        		break;
+	        		continue;
 	        	}
 	        	Usuario trabajador=null;
 	        	for(int j=0;j<contratos.size();j++) {
@@ -83,7 +84,7 @@ public class ImportTareasServlet extends HttpServlet {
 	        	}
 	        	if(trabajador == null){
 	        		error_tareas_trabajador.add(titulo);
-        			break;
+        			continue;
 	        	}
 
         		Tarea tarea = new Tarea();
@@ -97,10 +98,12 @@ public class ImportTareasServlet extends HttpServlet {
         		tarea.setProyecto(proyecto);
         		TareaDAOImplementation.getInstance().createTarea(tarea);
 	        }
-	        
-	        
-	        req.getSession().setAttribute("error_tareas_trabajador", error_tareas_trabajador);
-	        req.getSession().setAttribute("error_tareas_vacias", error_tareas_vacias);
+	        System.out.println("Trabajador:"+error_tareas_trabajador);
+	        System.out.println("Vacio:"+error_tareas_vacias);
+	        if(error_tareas_trabajador.isEmpty()==false)
+	        	req.getSession().setAttribute("error_tareas_trabajador", error_tareas_trabajador);
+	        if(error_tareas_vacias.isEmpty()==false)
+	        	req.getSession().setAttribute("error_tareas_vacias", error_tareas_vacias);
 	        
 	        proyecto=ProyectoDAOImplementation.getInstance().readProyectoFromProjectCode(Integer.parseInt(project_code));
         	
