@@ -49,39 +49,6 @@
 	%>
 </c:if>
 
-<!-- Modal de error al importar tareas -->
-<!--<c:if test="${not empty error_tareas_trabajador || not empty error_tareas_vacias}">
-	<div class="modal fade in" id="error-import" tabindex="-1" role="dialog" aria-labelledby="error-import" style="display: block;">
-		 <div class="modal-dialog modal-dialog-centered" role="document">
-		    <div class="modal-content" style="background-color: transparent; border:none;" >
-		      
-				<div class="alert alert-danger" role="alert" style="margin-bottom:0px ">
-					<c:if test="${not empty error_tareas_trabajador}">
-						<b>
-							Error: no se han podido importar las siguientes tareas ya que el email introducido no corresponde a ningun trabajador de este proyecto:
-						</b> 
-						<c:forEach items="${error_tareas_trabajador}" var="tarea">
-							<li>${tarea }</li>
-						</c:forEach>
-					</c:if>
-					<c:if test="${not empty error_tareas_vacias}">
-						<b>
-							Error: no se han podido importar las siguientes tareas debido a que alguno de los campos no estan rellenados:
-						</b>
-						<c:forEach items="${error_tareas_vacias}" var="tarea">
-							<li>${tarea }</li>
-						</c:forEach>
-					</c:if>
-				</div>
-			</div>
-		</div>
-	</div>
-	<%
-		session.removeAttribute("error_tareas_trabajador");
-		session.removeAttribute("error_tareas_vacias");
-	%>
- </c:if>-->
-
 <body>
 
 	<div class="app-wrapper">
@@ -422,10 +389,11 @@
 		      
 			  <div class="modal-body">
 			  		<form id="dropzone" class="dropzone" action="ImportTareasServlet" method="post" role="form" data-toggle="validator" enctype="multipart/form-data">
-					</form>					
+					</form>		
+					<div class="error-import" style="display: none;"></div>			
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-primary btn-block" type="submit" data-action="send-dropzone">Import tasks</button>
+					<button class="btn btn-primary btn-block disabled" data-action="send-dropzone">Accept</button>
 				</div>
 			  
 		    </div>
@@ -442,17 +410,50 @@
 				    this.on("addedfile", function() {
 			      		if (this.files[1] != null){
 			        		this.removeFile(this.files[0]);
-			      		}
+			      		} 
 			    	});
-				    myDropzone = this;
-				    $('.btn[data-action="send-dropzone"]').on("click", function() {
-			        	myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+				},
+				//autoProcessQueue: false,
+				success: function(file, response) {
+					
+					var no_worker = response.split('//&//')[0].split('\\&\\');
+					var empty_fields = response.split('//&//')[1].split('\\&\\');
+					
+					$('.btn[data-action="send-dropzone"]').on("click", function() {
+			        	location.reload();
 			      	});
-				},
-				success: function() {
-					location.reload(); 
-				},
-				autoProcessQueue: false
+					$('#import-tasks').on('hide.bs.modal', function (e) {
+					  	e.preventDefault();
+					});
+					$('#import-tasks .modal-header button').remove();
+					$('#import-tasks .modal-body .error-import').empty();
+					$('#import-tasks .modal-footer button').removeClass('disabled');
+					
+					if (no_worker.length != 0) {
+						$('#import-tasks .modal-body .error-import').show();
+						$('#import-tasks .modal-body .error-import').append(
+							$('<p>').text('Las siguientes tareas no tenian un usuario asociado existente en el proyecto.')
+									.addClass('error-title')
+						);
+						var no_worker_errors = $('<ul>');
+						for (var i = 0; i < no_worker.length; i++) {
+							$('<li>').text(no_worker[i]).appendTo(no_worker_errors);	
+						}
+						no_worker_errors.appendTo($('#import-tasks .modal-body .error-import'));
+					}	
+					if (empty_fields.length != 0) {
+						$('#import-tasks .modal-body .error-import').show();
+						$('#import-tasks .modal-body .error-import').append(
+							$('<p>').text('Las siguientes tareas tenían campos vacíos.')
+							.addClass('error-title')		
+						);
+						var empty_fields_error = $('<ul>');
+						for (var i = 0; i < empty_fields.length; i++) {
+							$('<li>').text(empty_fields[i]).appendTo(empty_fields_error);	
+						}
+						empty_fields_error.appendTo($('#import-tasks .modal-body .error-import'));
+					}
+				}
 			}
 		</script>
 

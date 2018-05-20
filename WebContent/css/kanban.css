@@ -312,6 +312,61 @@ input[type=text] {
 	background-color: #eeeeee;
 }
 
+.dropzone .dz-preview .dz-details .dz-filename:hover span {
+	border: initial !important;
+	background-color: initial !important;
+}
+
+#import-tasks .error-import {
+	margin-top: 20px;
+	background-color: #f2a9a94d;
+	border: 1px solid #b94a48;
+	border-radius: 5px;
+	color: #b94a48;
+	padding: 10px;
+}
+
+#import-tasks .error-import .error-title {
+	font-weight: bold;
+	font-size: 12px;
+}
+
+#import-tasks .error-import ul {
+	padding-left: 30px;
+	font-size: 12px;
+	list-style: decimal;
+}
+
+.dropzone .dz-preview .dz-progress {
+	width: 100% !important;
+	border: 1px solid #aaa !important;
+	position: initial !important;
+	height: 10px !important;
+	margin-top: 10px !important;
+	margin-left: 0px !important;
+	margin-bottom: -10px !important;
+}
+
+.dropzone .dz-preview {
+	width: 100%;
+}
+
+.dropzone .dz-image {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.dropzone .dz-preview.dz-complete .dz-progress {
+	opacity: 1 !important;
+}
+
+.dropzone .dz-preview .dz-progress .dz-upload {
+	background: linear-gradient(to bottom, #71c864, #296808) !important;
+}
+
+
+
+
 
 
 

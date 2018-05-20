@@ -161,12 +161,14 @@ body .navbar {
 }
 
 
-/** Create **/
-.main#create {
+/** Create and Settings **/
+.main#create,
+.main#settings {
 	padding: 0 !important;
 }
 
-.main#create .wrapper {
+.main#create .wrapper,
+.main#settings .wrapper {
 	height: 100%;
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -182,6 +184,25 @@ body .navbar {
    resize: none;
 }
 
+.main#settings .form-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100%;
+}
+
+.main#settings .name {
+	position: absolute;
+	top: 10px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding-right: 30px;
+	font-size: 2em;
+	font-weight: bolder;
+}
+ 
 
 /** Projects **/
 .main#projects > .row {

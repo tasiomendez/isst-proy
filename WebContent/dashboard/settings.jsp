@@ -1,16 +1,16 @@
 
 <div class="col-sm-8 col-sm-offset-2 wrapper">
-	<div class="col-sm-10 col-sm-offset-1">
+	<div class="col-sm-10 col-sm-offset-1 form-wrapper">
 			<div class="name">
-				${user.nombre} - 
+				<!-- <span class="username">${user.nombre}</span> --> 
 				<c:if test="${user.rol==1 }">
-					Project Manager
+					<span class="userrole">Project Manager</span>
 				</c:if>
 				<c:if test="${user.rol==2 }">
-					Human Resources
+					<span class="userrole">Human Resources</span>
 				</c:if>
 				<c:if test="${user.rol==3 }">
-					Team member
+					<span class="userrole">Team member</span>
 				</c:if>
 			</div>
 			
@@ -38,7 +38,7 @@
             	<div class="help-block with-errors"></div>
             </div>
 			
-			<button class="btn btn-lg btn-primary btn-block disabled" type="submit">Create</button>
+			<button class="btn btn-lg btn-primary btn-block disabled" type="submit">Update</button>
 		
 		</form>
 	</div>
