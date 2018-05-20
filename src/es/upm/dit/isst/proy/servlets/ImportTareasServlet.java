@@ -67,7 +67,6 @@ public class ImportTareasServlet extends HttpServlet {
 	        	fechaEntrega=dataFormatter.formatCellValue(row.getCell(2));
 	        	horas=dataFormatter.formatCellValue(row.getCell(3));
 	        	trabajador_email=dataFormatter.formatCellValue(row.getCell(4));
-	        	System.out.println(titulo);
 	        	if(titulo.isEmpty()||descripcion.isEmpty()||
 	        			fechaEntrega.isEmpty()||horas.isEmpty()||trabajador_email.isEmpty()) {
 	        		error_tareas_vacias.add(titulo);
@@ -98,8 +97,6 @@ public class ImportTareasServlet extends HttpServlet {
         		tarea.setProyecto(proyecto);
         		TareaDAOImplementation.getInstance().createTarea(tarea);
 	        }
-	        System.out.println("Trabajador:"+error_tareas_trabajador);
-	        System.out.println("Vacio:"+error_tareas_vacias);
 	        if(error_tareas_trabajador.isEmpty()==false)
 	        	req.getSession().setAttribute("error_tareas_trabajador", error_tareas_trabajador);
 	        if(error_tareas_vacias.isEmpty()==false)
@@ -115,10 +112,7 @@ public class ImportTareasServlet extends HttpServlet {
 				if(t.getEstado().equals("done"))
 					count_done++;
 			}
-			System.out.println(count_done);
-			System.out.println(tareas.size());
 			double percentage=count_done/(double)tareas.size();
-			System.out.println(percentage);
 			proyecto.setPercentage(percentage);
 			ProyectoDAOImplementation.getInstance().updateProyecto(proyecto);			req.getSession().setAttribute("tareas_list", tareas);
 	        resp.sendRedirect(req.getContextPath()+"/kanban");

@@ -57,10 +57,7 @@ public class CreateTareaServlet extends HttpServlet{
 			if(t.getEstado().equals("done"))
 				count_done++;
 		}
-		System.out.println(count_done);
-		System.out.println(tareas.size());
 		double percentage=count_done/(double)tareas.size();
-		System.out.println(percentage);
 		proyecto_nuevo.setPercentage(percentage);
 		ProyectoDAOImplementation.getInstance().updateProyecto(proyecto_nuevo);
 		req.getSession().setAttribute("tareas_list", tareas);

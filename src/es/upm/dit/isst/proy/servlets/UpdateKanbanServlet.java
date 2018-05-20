@@ -31,7 +31,6 @@ public class UpdateKanbanServlet extends HttpServlet{
 		resp.setCharacterEncoding("UTF-8"); 
 		String response="";
 		if(action.equals("state")) {
-			System.out.println(state_card);
 			//Accion de actualizar tarea
 			tarea.setEstado(state_card);
 			TareaDAOImplementation.getInstance().updateTarea(tarea);
@@ -47,10 +46,7 @@ public class UpdateKanbanServlet extends HttpServlet{
 				if(t.getEstado().equals("done"))
 					count_done++;
 			}
-			System.out.println(count_done);
-			System.out.println(tareas.size());
 			double percentage=count_done/(double)tareas.size();
-			System.out.println(percentage);
 			proyecto.setPercentage(percentage);
 			ProyectoDAOImplementation.getInstance().updateProyecto(proyecto);
 			

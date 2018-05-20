@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
 import es.upm.dit.isst.proy.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.proy.dao.model.Contrato;
 import es.upm.dit.isst.proy.dao.model.Proyecto;
@@ -33,7 +31,6 @@ public class LoginServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email= req.getParameter("email");
 		String password = cryptographicHash.getMD5(req.getParameter("password"));
-		System.out.println("pass:" + password);
 		Usuario usuario = UsuarioDAOImplementation.getInstance().loginUsuario(email, password);
 
 		if (usuario == null) {
