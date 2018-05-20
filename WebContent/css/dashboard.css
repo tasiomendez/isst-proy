@@ -539,6 +539,16 @@ body .navbar {
 	padding: 15px 0;
 }
 
+#worker-stats #no-info-pieChart {
+	position: absolute;
+	top: 44%;
+	width: 100%;
+	text-align: left;
+	padding-left: 28%;
+	font-weight: bold;
+	font-style: italic;
+}
+
 
 
 

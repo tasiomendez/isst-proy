@@ -210,12 +210,11 @@ function updateDB(action,card, success, error){
 		},
 		method:'POST',
 		error: function(error) {
-			console.log(error);
+			console.error(error);
 			if (error) { error(); }
 			else { $('#error-task').css('z-index', '2000').modal('show'); }
 		},
 		success: function(response) {
-			console.error(response)
 			if (success) { success(); }
 		},
 	});
@@ -223,25 +222,21 @@ function updateDB(action,card, success, error){
 
 function init () {
 	updateCardCounts();
-	moveCard(2, 1, 3);
+	//moveCard(2, 1, 3);
 }
 
 $(document).ready(function() {
 	init();
 	
 	// Form upload hours
-	$("#form-worked-hours").submit(function(e) {
+	$("form#form-worked-hours").submit(function(e) {
 		e.preventDefault();
-		console.log($("#form-worked-hours input[name=id]").val());
-		console.log($("#form-worked-hours input[name=worked-hours]").val());
-		var id_card=$("#form-worked-hours input[name=id]").val();
-		var worked_hours=$("#form-worked-hours input[name=worked-hours]").val();
+		var id_card = $(this).children('input[name=id]').val();
+		var worked_hours = $(this).children('input[name=worked-hours]').val();
 		
 		var card = todos[getIndexCard(id_card)];
 		
-		
 		card["hours_done"]=worked_hours;
-		console.log(card);
 		var form=$(this);
 		updateDB("saveHours",card,function(){
 			var firstDiv = $('<div>').attr('class', 'worked-hours');

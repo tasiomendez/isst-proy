@@ -67,7 +67,6 @@ public class AnalysisServlet extends HttpServlet{
 		}
 		response+=tareas_rapidas+"\\&\\"+tareas_lentas;
 		
-		System.out.println(response);
 		resp.getWriter().write(response);
 		
 	}

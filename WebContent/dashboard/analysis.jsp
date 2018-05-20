@@ -11,8 +11,13 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-6"></div>
-		<div class="col-sm-6"></div>
+		<div class="col-sm-6">
+			<div id="barChart" style="width: 100%; height: 100%;"></div>
+		</div>
+		<div class="col-sm-6">
+			<div id="pieChart" style="width: 100%; height: 100%;"></div>
+			<span id="no-info-pieChart" style="display: none">No tasks completed</span>
+		</div>
 	</div>
 </div>
 
@@ -87,6 +92,60 @@
 					var item = $('<li>').append($('<div>').append(title).append(dates));
 					$('#worker-stats ul.projects').append(item);
 				}
+				
+				var tasks = array[2].split('\\&\\');
+				var tst = [['Project', 'Tasks', { role: 'style' }]];
+				for (i in tasks) {
+					tst.push([projects[i].split(',')[0], parseInt(tasks[i]), getRandomColor(parseInt(projects[i].split(',')[3]))]);
+				}
+				// Tasks Chart
+				google.charts.load("current", {packages:["corechart"]});
+				google.charts.setOnLoadCallback(function() {
+					
+					var color = getRandomColor(40);
+					
+					var data = google.visualization.arrayToDataTable(tst);
+					
+					var options = {
+		            	title: 'Total tasks',
+				        width: Math.round($('#barChart').width()),
+				    	height: Math.round($('#barChart').height()),
+				    	legend: { position: "none" },
+			        };
+			
+				  	var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));
+				  	chart.draw(data, options);
+				});
+				
+				var performance = array[3].split('\\&\\');
+				var total_tasks_done = parseInt(performance[0]) + parseInt(performance[1]);
+				// Performance Chart
+				google.charts.setOnLoadCallback(function() {
+					var data = google.visualization.arrayToDataTable([
+					    ['Completed', 	'Percentage'],
+					    ['Quick tasks', parseInt(performance[0]) / total_tasks_done],
+					    ['Slow tasks', 	parseInt(performance[1]) / total_tasks_done]
+				  	]);
+				
+				  	var options = {
+				  		title: 'Performance',
+				    	pieHole: 0.3,
+				    	legend: {position: 'bottom'},
+				    	is3D: true,
+				    	width: Math.round($('#pieChart').width()),
+				    	height: Math.round($('#pieChart').height()),
+				    	colors:['2cc400','f87c7c'],
+				    	slices: {  1: {offset: 0.05} },
+				  	};
+			
+				  	var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
+				  	chart.draw(data, options);
+				});
+				
+				if (total_tasks_done == 0)
+					$('#no-info-pieChart').show();
+				else
+					$('#no-info-pieChart').hide();
 		    },
 		    error: function(error) {
 		        console.error(error);
