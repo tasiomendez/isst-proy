@@ -696,6 +696,71 @@ body .navbar {
 	overflow: auto;
 }
 
+/** Help **/
+.main#help {
+	background-color: white;	
+}
+
+.main#help .wrapper {
+	height: 100%;
+}
+
+.main#help h2 {
+	text-align: center;
+	margin-bottom: 20px;
+	width: 100%;
+	margin-top: 0;
+}
+
+.main#help table {
+	width: 100%;
+	margin-top: 25px;
+}
+
+.main#help .copyright {
+	font-size: 10px;
+	width: 100%;
+	margin-top: 40px;
+	margin-bottom: 0;
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: flex-end;
+}
+
+.main#help .info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+}
+
+.main#help .info p {
+	text-align: justify;
+}
+
+.main#help table tr td:nth-child(2) {
+    text-align: right;
+    font-style: italic;
+}
+
+.main#help table td {
+	padding: 2px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
