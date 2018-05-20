@@ -34,126 +34,106 @@ import es.upm.dit.isst.proy.dao.model.Usuario;
 @MultipartConfig
 @WebServlet("/PDFServlet")
 public class PDFServlet extends HttpServlet{
-	
-    @Override
+
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
- 		ServletOutputStream sout = resp.getOutputStream();
 
- 		//Elementos a imprimir del proyecto
- 		int id = Integer.parseInt(req.getParameter("project_id"));
- 		Proyecto project = ProyectoDAOImplementation.getInstance().readProyecto(id);
- 		Set <Tarea> tareas = project.getTareas();
- 		
- 		ArrayList <Contrato> contratos = new ArrayList<Contrato>();
- 		ArrayList <Usuario> usuarios = new ArrayList<Usuario>();
- 		contratos.addAll(project.getContratos());
- 		for(Contrato c : contratos) {
- 			usuarios.add(c.getUsuario());
- 		}
- 		
-         try {
-        	 
-             Calendar fecha = new GregorianCalendar();
-             int año = fecha.get(Calendar.YEAR);
-             int mes = fecha.get(Calendar.MONTH);
-             int dia = fecha.get(Calendar.DAY_OF_MONTH);
-             int hora = fecha.get(Calendar.HOUR_OF_DAY);
-             int minuto = fecha.get(Calendar.MINUTE);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ServletOutputStream sout = resp.getOutputStream();
 
-        	 int cont_i = 1;
-        	 int cont_j = 1;
-        	 int cont_k = 1;
-        	 PdfReader reader = new PdfReader("/InformePlantilla.pdf");
-             
-        	 
-        	 //PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));	
-             PdfStamper stamper = new PdfStamper(reader, baos);
-             AcroFields form = stamper.getAcroFields();
-             form.removeXfa();
-             form.setField("project_name", project.getTitulo());
-             form.setField("initial_date", project.getFechaInicio());
-             form.setField("end_date", project.getFechaFinal());
-             form.setField("project_description", project.getDescripcion());
-             form.setField("inform_date", Integer.toString(dia)+"/"+Integer.toString(mes)+"/"+Integer.toString(año)+"  "+Integer.toString(hora)+":"+Integer.toString(minuto));
-             form.setField("project_progress", Double.toString(project.getPercentage() * 100) + " %");
-             
-             for (int i = 1;i<23;i++){
-            	 for (Usuario u: usuarios) {
-            		System.out.println("hola:" + u.getNombre());
-            		if(u.getRol() == 3) {
-                   	 System.out.println("Dentro:" +u.getNombre());
-                   	 
-                   	form.setField("trabajador"+i+"","- "+ u.getNombre());
-                   	usuarios.remove(u);
-                   	break;
-            		}	  			
-            	 }
-             }
-             
-             
-             for (Tarea t : tareas) {
-            	 System.out.println(t.getTitulo());
-            	
-            	 if (t.getEstado().equals("todo")) {
-            		
-            		 for (int i = cont_i;i<13;i++){
-            			 form.setField("toDo"+i+"", t.getTitulo()+"  ("+t.getWorked_hours()+"/"+t.getPlanned_hours()+")");
-            			 cont_i++;
-            			 break;
-            		 }
-            		 
-            	 }
-            	 if (t.getEstado().equals("doing")) {
-            		 for (int j = cont_j;j<13;j++){
-            			 form.setField("doing"+j+"", t.getTitulo()+"  ("+t.getWorked_hours()+"/"+t.getPlanned_hours()+")");
-            			 cont_j++;
-            			 break;
-            		 }
-            	 }
-            	 if (t.getEstado().equals("done")) {
-            		 for (int k = cont_k;k<13;k++){
-            			 form.setField("done"+k+"", t.getTitulo()+"  ("+t.getWorked_hours()+"/"+t.getPlanned_hours()+")");
-            			 cont_k++;
-            			 break;
-            		 }
-            	 }
-             }
+		//Elementos a imprimir del proyecto
+		int id = Integer.parseInt(req.getParameter("project_id"));
+		Proyecto project = ProyectoDAOImplementation.getInstance().readProyecto(id);
+		Set <Tarea> tareas = project.getTareas();
 
-     
-             stamper.setFormFlattening(true);
-             stamper.close();
-             reader.close();
-             
-             OutputStream out = new FileOutputStream("out.pdf");
-	 			out.write(baos.toByteArray());
-	 			out.close();
-	 			
-	 			File file = new File("out.pdf");
-	 			InputStream fileContent = new FileInputStream(file);
-	 			ByteArrayOutputStream output = baos;
-	 			byte[] buffer = new byte[10240];
-	 			for (int length = 0; (length = fileContent.read(buffer)) > 0;)
-	 				output.write(buffer, 0, length);
-	 			project.setDocument(output.toByteArray());
-	 			
-	 			ProyectoDAOImplementation.getInstance().updateProyecto(project); 
-             
-            
+		ArrayList <Contrato> contratos = new ArrayList<Contrato>();
+		ArrayList <Usuario> usuarios = new ArrayList<Usuario>();
+		contratos.addAll(project.getContratos());
+		for(Contrato c : contratos) {
+			usuarios.add(c.getUsuario());
+		}
+
+		try {
+
+			Calendar fecha = new GregorianCalendar();
+			int año = fecha.get(Calendar.YEAR);
+			int mes = fecha.get(Calendar.MONTH);
+			int dia = fecha.get(Calendar.DAY_OF_MONTH);
+			int hora = fecha.get(Calendar.HOUR_OF_DAY);
+			int minuto = fecha.get(Calendar.MINUTE);
+
+			int cont_i = 1;
+			int cont_j = 1;
+			int cont_k = 1;
+			PdfReader reader = new PdfReader("/InformePlantilla.pdf");
+
+
+			//PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(dest));	
+			PdfStamper stamper = new PdfStamper(reader, baos);
+			AcroFields form = stamper.getAcroFields();
+			form.removeXfa();
+			form.setField("project_name", project.getTitulo());
+			form.setField("initial_date", project.getFechaInicio());
+			form.setField("end_date", project.getFechaFinal());
+			form.setField("project_description", project.getDescripcion());
+			form.setField("inform_date", Integer.toString(dia)+"/"+Integer.toString(mes)+"/"+Integer.toString(año)+"  "+Integer.toString(hora)+":"+Integer.toString(minuto));
+			form.setField("project_progress", Double.toString(project.getPercentage() * 100) + " %");
+
+			for (int i = 1;i<23;i++){
+				for (Usuario u: usuarios) {
+					if(u.getRol() == 3) {
+
+						form.setField("trabajador"+i+"","- "+ u.getNombre());
+						usuarios.remove(u);
+						break;
+					}	  			
+				}
+			}
+
+			for (Tarea t : tareas) {
+
+				if (t.getEstado().equals("todo")) {
+
+					for (int i = cont_i;i<13;i++){
+						form.setField("toDo"+i+"", t.getTitulo()+"  ("+t.getWorked_hours()+"/"+t.getPlanned_hours()+")");
+						cont_i++;
+						break;
+					}
+
+				}
+				if (t.getEstado().equals("doing")) {
+					for (int j = cont_j;j<13;j++){
+						form.setField("doing"+j+"", t.getTitulo()+"  ("+t.getWorked_hours()+"/"+t.getPlanned_hours()+")");
+						cont_j++;
+						break;
+					}
+				}
+				if (t.getEstado().equals("done")) {
+					for (int k = cont_k;k<13;k++){
+						form.setField("done"+k+"", t.getTitulo()+"  ("+t.getWorked_hours()+"/"+t.getPlanned_hours()+")");
+						cont_k++;
+						break;
+					}
+				}
+			}
+
+			stamper.setFormFlattening(true);
+			stamper.close();
+			reader.close();
+			project.setDocument(baos.toByteArray());
+			ProyectoDAOImplementation.getInstance().updateProyecto(project); 
+			
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-         
-      
-        resp.setContentType("application/pdf");
- 		resp.setContentLength(baos.size());
- 		baos.writeTo(sout);
+
+		resp.setContentType("application/pdf");
+		resp.setContentLength(baos.size());
+		baos.writeTo(sout);
 
 	}
-    
-    
-  
-    
+
+
+
+
 }

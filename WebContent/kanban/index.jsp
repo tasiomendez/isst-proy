@@ -421,7 +421,7 @@
 		      </div>
 		      
 			  <div class="modal-body">
-			  		<form id="import-tasks-form" class="dropzone" action="ImportTareasServlet" method="post" role="form" data-toggle="validator" enctype="multipart/form-data">
+			  		<form id="dropzone" class="dropzone" action="ImportTareasServlet" method="post" role="form" data-toggle="validator" enctype="multipart/form-data">
 					</form>					
 				</div>
 				<div class="modal-footer">
@@ -434,8 +434,21 @@
 		
 		<script type="text/javascript">
 			$('#import-tasks').on('hidden.bs.modal', function (e) {
-				$('#import-tasks #file').val('');
+				$('#dropzone #file').val('');
 			});
+			
+			Dropzone.options.dropzone = {
+			  	accept: function(file, done) {
+			    	console.log("uploaded");
+			    	done();
+			  	},
+			  	init: function() {
+				    this.on("addedfile", function() {
+			      		if (this.files[1] != null){
+			        	this.removeFile(this.files[0]);
+			      	}
+			    });
+			}
 		</script>
 
 	</c:if>
