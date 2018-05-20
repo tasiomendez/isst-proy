@@ -22,6 +22,8 @@ public class Proyecto {
 	private String fechaFinal;
 	private boolean acabado; 
 	private int project_code;
+	private double percentage;
+
 	@Lob
 	private byte[] document;
 	
@@ -107,6 +109,14 @@ public class Proyecto {
 	
 	public void setContratos(Set<Contrato> contratos) {
 		this.contratos = contratos;
+	}
+	
+	public double getPercentage() {
+		return percentage;
+	}
+
+	public void setPercentage(double percentage) {
+		this.percentage = percentage;
 	}
 	
 	@Override

@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (req.getSession().getAttribute("email") != null) {
 			Usuario usuario = UsuarioDAOImplementation.getInstance().readUsuario((String) req.getSession().getAttribute("email"));
-			loadEvents(req, resp, usuario);
+			reloadSession(req, resp, usuario);
 		}
 	}
 
@@ -45,24 +45,28 @@ public class LoginServlet extends HttpServlet{
 			resp.sendRedirect(req.getContextPath());
 
 		} else {
-
-			req.getSession().setAttribute("role",usuario.getRol());
-			req.getSession().setAttribute("email",usuario.getEmail());
-
-			ArrayList<Contrato> contratos = new ArrayList<Contrato>();
-			contratos.addAll(usuario.getContratos());
-			Proyecto[] proyecto = new Proyecto[contratos.size()];
-			for(int i=0;i<contratos.size();i++) {
-				proyecto[i]=contratos.get(i).getProyecto();
-			}
-			req.getSession().setAttribute("project_list",proyecto );
-			req.getSession().setAttribute("name",usuario.getNombre());
-			ArrayList<Usuario> list_trabajador = (ArrayList<Usuario>) UsuarioDAOImplementation.getInstance().readAllUsuario(3);
-			req.getSession().setAttribute("trabajador_list", list_trabajador);
-			req.getSession().setAttribute("calendar_id", usuario.getIdCalendar());
-
-			loadEvents(req, resp, usuario);
+			reloadSession(req, resp, usuario);
+			
 		}
+	}
+	
+	private void reloadSession(HttpServletRequest req, HttpServletResponse resp, Usuario usuario) throws ServletException, IOException {
+		req.getSession().setAttribute("role",usuario.getRol());
+		req.getSession().setAttribute("email",usuario.getEmail());
+
+		ArrayList<Contrato> contratos = new ArrayList<Contrato>();
+		contratos.addAll(usuario.getContratos());
+		Proyecto[] proyecto = new Proyecto[contratos.size()];
+		for(int i=0;i<contratos.size();i++) {
+			proyecto[i]=contratos.get(i).getProyecto();
+		}
+		req.getSession().setAttribute("project_list",proyecto );
+		req.getSession().setAttribute("name",usuario.getNombre());
+		ArrayList<Usuario> list_trabajador = (ArrayList<Usuario>) UsuarioDAOImplementation.getInstance().readAllUsuario(3);
+		req.getSession().setAttribute("trabajador_list", list_trabajador);
+		req.getSession().setAttribute("calendar_id", usuario.getIdCalendar());
+
+		loadEvents(req, resp, usuario);
 	}
 
 	private void loadEvents(HttpServletRequest req, HttpServletResponse resp, Usuario usuario) throws ServletException, IOException {

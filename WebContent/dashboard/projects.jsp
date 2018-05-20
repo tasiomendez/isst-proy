@@ -95,7 +95,7 @@
 						</div>
 					</div>
 					<div class="${project.project_code} chart-info">
-						<span>60%</span> of 100
+						<span>${project.percentage * 100}%</span> of 100
 					</div>
 					<div id="${project.project_code}" style="width: 150px; height: 150px;"></div>
 					<script type="text/javascript">
@@ -104,8 +104,8 @@
 							var color = getRandomColor(${project.project_code});
 							var data = google.visualization.arrayToDataTable([
 							    ['Completed', 	'Percentage'],
-							    ['Completed', 	60],
-							    ['Uncompleted', 40]
+							    ['Completed', 	100 * ${project.percentage}],
+							    ['Uncompleted', 100 - 100 * ${project.percentage}]
 						  	]);
 						
 						  	var options = {
@@ -120,7 +120,7 @@
 						  	};
 					
 						  	var chart = new google.visualization.PieChart(document.getElementById('${project.project_code}'));
-						  	$('.${project.project_code}.chart-info span').css('color', color);
+						  	$('.${project.project_code}.chart-info span').css('color', color).text(Math.round(${project.percentage} * 1000) / 10 + '%');
 						  	chart.draw(data, options);
 						});
 			    	</script>
