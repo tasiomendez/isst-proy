@@ -14,6 +14,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/kanban.js"></script>
 <script src="https://cdn.jsdelivr.net/lodash/4/lodash.min.js"></script>
 
+<!-- Dropzone JS -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.css" rel="stylesheet" />
+
 <!-- Validator -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 
@@ -46,7 +50,7 @@
 </c:if>
 
 <!-- Modal de error al importar tareas -->
-<c:if test="${not empty error_tareas_trabajador || not empty error_tareas_vacias}">
+<!--<c:if test="${not empty error_tareas_trabajador || not empty error_tareas_vacias}">
 	<div class="modal fade in" id="error-import" tabindex="-1" role="dialog" aria-labelledby="error-import" style="display: block;">
 		 <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content" style="background-color: transparent; border:none;" >
@@ -76,7 +80,7 @@
 		session.removeAttribute("error_tareas_trabajador");
 		session.removeAttribute("error_tareas_vacias");
 	%>
- </c:if>
+ </c:if>-->
 
 <body>
 
@@ -383,12 +387,6 @@
 					<button class="btn btn-primary btn-block disabled" type="submit">Add task</button>
 				</div>
 			  </form>
-			  
-			    <!-- version para importar tareas de excels -->
-			  <form id="select-form" action="ImportTareasServlet" method="post" role="form" enctype="multipart/form-data">
-			  	<input id="file" type="file" name ="file"/>
-				<button type="submit">Importar Excel</button>
-			  </form>
 		    </div>
 		  </div>
 		</div>
@@ -400,7 +398,44 @@
 		        $('#add-task select').val('');
 		        $('#add-task #planned_hours').val('');
 			});
+		</script>
 		
+		
+		<!-- Import tasks button and modal -->
+		<div class="import-tasks">
+			<span class="glyphicon glyphicon-import"></span>
+		</div>
+		
+		<script type="text/javascript">
+			$('.import-tasks').on('click', function() {
+				$('#import-tasks').modal('show')
+			});
+		</script>
+		
+		<div class="modal fade" id="import-tasks" tabindex="-1" role="dialog" aria-labelledby="add-task">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Import new tasks</h4>
+		      </div>
+		      
+			  <div class="modal-body">
+			  		<form id="import-tasks-form" class="dropzone" action="ImportTareasServlet" method="post" role="form" data-toggle="validator" enctype="multipart/form-data">
+					</form>					
+				</div>
+				<div class="modal-footer">
+					<a href="${pageContext.request.contextPath}/KanbanServlet?project_code=${project_code}"><button class="btn btn-primary btn-block" type="button">Import tasks</button></a>
+				</div>
+			  
+		    </div>
+		  </div>
+		</div>
+		
+		<script type="text/javascript">
+			$('#import-tasks').on('hidden.bs.modal', function (e) {
+				$('#import-tasks #file').val('');
+			});
 		</script>
 
 	</c:if>
