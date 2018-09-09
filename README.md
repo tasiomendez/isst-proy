@@ -8,7 +8,7 @@ Una vez descargada la aplicación, debemos descargar el json con las credenciale
 
 ## Autores
 
-Proyecto de la asignatura de ISST realizado por el Grupo 18.
+Proyecto de la asignatura de ISST en la UPM realizado por el Grupo 18.
 
 * Rafael Arias Gómez *(rafael.arias.gomez@alumnos.upm.es)*
 * Alberto Jiménez Aliste *(alberto.jimenez.aliste@alumnos.upm.es)*
