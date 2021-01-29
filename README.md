@@ -11,7 +11,7 @@ Una vez descargada la aplicación, debemos descargar el json con las credenciale
 Proyecto de la asignatura de ISST en la UPM realizado por el Grupo 18.
 
 * Rafael Arias Gómez *(rafael.arias.gomez@alumnos.upm.es)*
-* Alberto Jiménez Aliste *(alberto.jimenez.aliste@alumnos.upm.es)*
+* Alberto Jimenez Aliste *(alberto.jimenez.aliste@alumnos.upm.es)*
 * Tasio Méndez Ayerbe *(tasio.mendez.ayerbe@alumnos.upm.es)*
 * Mario Penavades Suárez *(m.penavades@alumnos.upm.es)*
 * Daniel Suárez Souto *(daniel.suarez.souto@alumnos.upm.es)*
